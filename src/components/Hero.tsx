@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { useTranslation } from "@/context/LanguageContext";
@@ -9,35 +9,35 @@ type ZoneId = "roots" | "trunk" | "branches" | "leaves" | "crown";
 
 /* ─────────────────────────────────────────────────────────────────────────────
    Levensboom (Tree of Life) SVG
-   Organic design — proper tree of life with roots, trunk, branches, leaf dots
-   5 interactive zones
+   Living, warm amber tree — fully alive at base state.
+   5 interactive hover zones that illuminate.
 ───────────────────────────────────────────────────────────────────────────── */
 function LevensBoom({ activeZone, onZoneEnter, onZoneLeave }: {
   activeZone: ZoneId | null;
   onZoneEnter: (z: ZoneId) => void;
   onZoneLeave: () => void;
 }) {
-  const base   = 0.50;
+  const T      = "#C4911A"; // warm living amber-gold
+  const base   = 0.82;
   const active = 1.0;
-  const dimmed = 0.07;
+  const dimmed = 0.18;
 
   function o(zone: ZoneId) {
     if (activeZone === null) return base;
     return activeZone === zone ? active : dimmed;
   }
-  const circleO = activeZone === "crown" ? 0.70 : activeZone === null ? 0.32 : 0.06;
-  const trunkO  = activeZone === "trunk" ? active : activeZone === null ? base + 0.05 : dimmed;
-  const T       = "#8B5A0A"; // rich warm amber — perfect against cream
+  const circleO = activeZone === "crown" ? 0.80 : activeZone === null ? 0.45 : 0.08;
+  const trunkO  = activeZone === "trunk" ? active : activeZone === null ? base : dimmed;
 
   return (
     <svg viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
 
       {/* ══ CROWN: circle frame + top branches ══ */}
-      <motion.g animate={{ opacity: circleO }} transition={{ duration: 0.7 }}
+      <motion.g animate={{ opacity: circleO }} transition={{ duration: 0.6 }}
         onMouseEnter={() => onZoneEnter("crown")} onMouseLeave={onZoneLeave} style={{ cursor: "pointer" }}>
         <rect x="60" y="38" width="380" height="200" fill="transparent" />
         <circle cx="250" cy="250" r="230" stroke={T} strokeWidth="2.5" />
-        <circle cx="250" cy="250" r="221" stroke={T} strokeWidth="0.8" strokeOpacity="0.45" />
+        <circle cx="250" cy="250" r="221" stroke={T} strokeWidth="0.8" strokeOpacity="0.5" />
         <path d="M 250 180 C 250 162 249 142 248 116" stroke={T} strokeWidth="4" strokeLinecap="round"/>
         <path d="M 249 152 C 230 136 210 124 192 118" stroke={T} strokeWidth="2.5" strokeLinecap="round"/>
         <path d="M 249 152 C 268 136 290 124 308 118" stroke={T} strokeWidth="2.5" strokeLinecap="round"/>
@@ -52,8 +52,8 @@ function LevensBoom({ activeZone, onZoneEnter, onZoneLeave }: {
         <circle cx="300" cy="102" r="3.5" fill={T} />
         <circle cx="161" cy="113" r="3" fill={T} />
         <circle cx="339" cy="113" r="3" fill={T} />
-        <circle cx="248" cy="112" r="14" stroke={T} strokeWidth="1" strokeOpacity="0.30" />
-        <circle cx="248" cy="112" r="22" stroke={T} strokeWidth="0.5" strokeOpacity="0.15" />
+        <circle cx="248" cy="112" r="14" stroke={T} strokeWidth="1.2" strokeOpacity="0.35" />
+        <circle cx="248" cy="112" r="22" stroke={T} strokeWidth="0.6" strokeOpacity="0.18" />
       </motion.g>
 
       {/* ══ LEAVES: upper canopy branches ══ */}
@@ -140,10 +140,10 @@ function LevensBoom({ activeZone, onZoneEnter, onZoneLeave }: {
         <rect x="230" y="180" width="40" height="195" fill="transparent" />
         <path
           d="M 243 368 C 241 338 240 306 241 274 C 242 250 244 230 247 210 L 248 194 C 249 188 250 184 250 181 C 250 184 251 188 252 194 L 253 210 C 256 230 258 250 259 274 C 260 306 259 338 257 368 Z"
-          fill={T} fillOpacity="0.88"
+          fill={T} fillOpacity="0.92"
         />
         <path d="M 250 362 C 250 336 250 308 250 282 C 250 256 250 228 250 206 C 250 196 250 188 250 183"
-          stroke="#FFFDF6" strokeWidth="1.5" strokeOpacity="0.22" strokeLinecap="round"/>
+          stroke="#FFFDF6" strokeWidth="1.5" strokeOpacity="0.25" strokeLinecap="round"/>
         <path d="M 244 350 C 222 338 196 328 170 322" stroke={T} strokeWidth="9" strokeLinecap="round"/>
         <path d="M 256 350 C 278 338 304 328 330 322" stroke={T} strokeWidth="9" strokeLinecap="round"/>
         <path d="M 170 322 C 150 317 132 314 116 316" stroke={T} strokeWidth="5.5" strokeLinecap="round"/>
@@ -222,10 +222,10 @@ function ZoneLabel({ zone, zoneData }: { zone: ZoneId; zoneData: { title: string
     >
       <div className="rounded-xl px-4 py-3.5" style={{
         background: "#FFFDF6",
-        border: "1px solid rgba(139,90,10,0.22)",
-        boxShadow: "0 4px 24px rgba(180,120,20,0.10)"
+        border: "1px solid rgba(196,145,26,0.28)",
+        boxShadow: "0 4px 24px rgba(180,120,20,0.12)"
       }}>
-        <p className="font-serif text-sm font-semibold mb-1.5 leading-tight" style={{ color: "#8B5A0A" }}>
+        <p className="font-serif text-sm font-semibold mb-1.5 leading-tight" style={{ color: "#B8750E" }}>
           {zoneData.title}
         </p>
         <p className="font-sans text-xs leading-relaxed" style={{ color: "#7A6B52" }}>
@@ -233,6 +233,26 @@ function ZoneLabel({ zone, zoneData }: { zone: ZoneId; zoneData: { title: string
         </p>
       </div>
     </motion.div>
+  );
+}
+
+/* ── Animated sunrise background element ── */
+function SunriseGlow() {
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden>
+      {/* Primary warm glow — bottom center */}
+      <motion.div
+        className="absolute bottom-[-10%] left-1/2 -translate-x-1/2 w-[900px] h-[600px] rounded-full"
+        style={{ background: "radial-gradient(ellipse at 50% 100%, rgba(201,138,24,0.13) 0%, rgba(201,138,24,0.04) 55%, transparent 78%)" }}
+        animate={{ opacity: [0.7, 1, 0.7] }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+      />
+      {/* Secondary top-right warmth */}
+      <div
+        className="absolute top-0 right-0 w-[400px] h-[400px] rounded-full"
+        style={{ background: "radial-gradient(circle at 100% 0%, rgba(254,242,204,0.45) 0%, transparent 65%)" }}
+      />
+    </div>
   );
 }
 
@@ -249,8 +269,7 @@ export default function Hero() {
   const y       = useTransform(scrollYProgress, [0, 1], [0, -60]);
   const opacity = useTransform(scrollYProgress, [0, 0.65], [1, 0]);
 
-  const zoneData   = activeZone ? t.hero.zone[activeZone] : null;
-  const titleWords = t.hero.tagline.split(" ");
+  const zoneData = activeZone ? t.hero.zone[activeZone] : null;
 
   return (
     <section
@@ -259,90 +278,117 @@ export default function Hero() {
       style={{ background: "linear-gradient(175deg, #FFFDF6 0%, #FFF8E8 55%, #FEF2CC 100%)" }}
     >
       <div className="grain-overlay absolute inset-0 pointer-events-none" />
-
-      {/* Warm sunrise glow from below */}
-      <div
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] pointer-events-none"
-        style={{
-          background: "radial-gradient(ellipse at 50% 100%, rgba(201,138,24,0.14) 0%, rgba(201,138,24,0.04) 55%, transparent 78%)",
-        }}
-      />
+      <SunriseGlow />
 
       <motion.div
         style={{ y, opacity }}
-        className="relative z-10 w-full content-wide pt-28 pb-20 flex flex-col lg:flex-row items-center gap-12 lg:gap-16"
+        className="relative z-10 w-full content-wide pt-28 pb-24 flex flex-col lg:flex-row items-center gap-10 lg:gap-16"
       >
         {/* LEFT: Text */}
-        <div className="flex-1 lg:max-w-[46%] text-center lg:text-left">
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="font-sans text-xs font-medium tracking-[0.28em] uppercase mb-8"
-            style={{ color: "#C98A18" }}
-          >
-            {t.hero.eyebrow}
-          </motion.p>
+        <div className="flex-1 lg:max-w-[52%] text-center lg:text-left">
 
-          <h1 className="font-serif font-bold leading-[1.02] mb-6"
-            style={{ fontSize: "clamp(2.8rem, 6vw, 5rem)", color: "#1A1610" }}>
-            {titleWords.map((word, i) => (
-              <span key={i} className="overflow-hidden inline-block mr-3">
+          {/* ── THE BRAND TAGLINE — MAIN H1 — ALWAYS ENGLISH ── */}
+          <motion.h1
+            className="font-serif font-bold leading-[1.0] mb-8"
+            style={{ fontSize: "clamp(3rem, 7vw, 5.5rem)", color: "#1A1610" }}
+          >
+            {"The same life.".split("").map((char, i) => (
+              <span key={i} className="overflow-hidden inline-block">
                 <motion.span
                   className="inline-block"
                   initial={{ y: "100%", opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
-                  transition={{ duration: 0.9, delay: 0.4 + i * 0.12, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{ duration: 0.9, delay: 0.2 + i * 0.018, ease: [0.22, 1, 0.36, 1] }}
                 >
-                  {word}
+                  {char === " " ? "\u00A0" : char}
                 </motion.span>
               </span>
             ))}
-          </h1>
+            <br />
+            {"A different perspective.".split("").map((char, i) => (
+              <span key={i} className="overflow-hidden inline-block">
+                <motion.span
+                  className="inline-block"
+                  initial={{ y: "100%", opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 0.9, delay: 0.55 + i * 0.018, ease: [0.22, 1, 0.36, 1] }}
+                  style={{ color: i < 2 ? "#1A1610" : "#C4911A" }}
+                >
+                  {char === " " ? "\u00A0" : char}
+                </motion.span>
+              </span>
+            ))}
+          </motion.h1>
 
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.85 }} className="mb-4">
-            <p className="font-display text-xl md:text-2xl italic font-light leading-snug" style={{ color: "#7A6B52" }}>
-              {t.hero.sub1}
-            </p>
-          </motion.div>
+          {/* Thin gold hairline */}
+          <motion.div
+            initial={{ scaleX: 0, opacity: 0 }}
+            animate={{ scaleX: 1, opacity: 1 }}
+            transition={{ duration: 0.9, delay: 1.1 }}
+            className="mb-7 h-px max-w-[100px] mx-auto lg:mx-0"
+            style={{ background: "rgba(196,145,26,0.45)", transformOrigin: "left" }}
+          />
 
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 1.05 }}>
-            <hr className="hr-gold my-6 max-w-[140px] mx-auto lg:mx-0" />
-            {/* THE TAGLINE — NEVER TRANSLATED */}
-            <p className="font-sans text-sm tracking-wide" style={{ color: "#A89070" }}>
-              The same life. A different perspective.
-            </p>
-          </motion.div>
+          {/* Translated sub — the daily line */}
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 1.2 }}
+            className="font-serif italic font-light leading-snug mb-3"
+            style={{ fontSize: "clamp(1.2rem, 2.5vw, 1.6rem)", color: "#7A6B52" }}
+          >
+            {t.hero.tagline}
+          </motion.p>
 
+          {/* Question */}
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 1.35 }}
+            className="font-sans mb-10"
+            style={{ fontSize: "clamp(0.9rem, 1.4vw, 1rem)", color: "#A89070" }}
+          >
+            {t.hero.sub1}
+          </motion.p>
+
+          {/* CTAs */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 1.25 }}
-            className="flex flex-col sm:flex-row gap-4 mt-10 justify-center lg:justify-start"
+            transition={{ duration: 0.9, delay: 1.5 }}
+            className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
           >
-            <Link href="/blog"
+            {/* Primary — links to email signup */}
+            <a
+              href="#signup"
               className="inline-flex items-center justify-center px-8 py-3.5 rounded-full text-sm font-medium transition-all duration-300 hover:opacity-80"
-              style={{ background: "#1A1610", color: "#FFFDF6" }}>
+              style={{ background: "#1A1610", color: "#FFFDF6" }}
+            >
               {t.hero.cta1}
-            </Link>
-            <Link href="/about"
+            </a>
+            <Link
+              href="/about"
               className="inline-flex items-center justify-center px-8 py-3.5 rounded-full text-sm font-medium transition-all duration-300"
-              style={{ border: "1.5px solid rgba(139,90,10,0.35)", color: "#8B5A0A" }}>
+              style={{ border: "1.5px solid rgba(196,145,26,0.40)", color: "#B8750E" }}
+            >
               {t.hero.cta2}
             </Link>
           </motion.div>
         </div>
 
-        {/* RIGHT: Levensboom */}
+        {/* RIGHT: Living Levensboom */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.92 }}
+          initial={{ opacity: 0, scale: 0.90 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.6, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-          className="relative flex-1 w-full max-w-[460px] lg:max-w-[490px] aspect-square"
+          transition={{ duration: 1.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          className="relative flex-1 w-full max-w-[440px] lg:max-w-[480px] aspect-square"
         >
-          <div
+          {/* Ambient glow behind tree */}
+          <motion.div
             className="absolute inset-0 rounded-full pointer-events-none"
-            style={{ background: "radial-gradient(ellipse at 50% 55%, rgba(201,138,24,0.09) 0%, transparent 68%)" }}
+            style={{ background: "radial-gradient(ellipse at 50% 55%, rgba(201,138,24,0.11) 0%, transparent 68%)" }}
+            animate={{ opacity: [0.7, 1, 0.7] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
           />
 
           <LevensBoom
@@ -361,8 +407,8 @@ export default function Hero() {
             {!activeZone && (
               <motion.p
                 initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                transition={{ delay: 2.5, duration: 1.2 }}
-                className="absolute bottom-[-2.2rem] left-1/2 -translate-x-1/2 text-center font-sans text-xs tracking-[0.18em] uppercase whitespace-nowrap"
+                transition={{ delay: 3, duration: 1.2 }}
+                className="absolute bottom-[-2.5rem] left-1/2 -translate-x-1/2 text-center font-sans text-xs tracking-[0.18em] uppercase whitespace-nowrap"
                 style={{ color: "#A89070" }}
               >
                 {t.hero.explore}
@@ -374,7 +420,7 @@ export default function Hero() {
 
       {/* Scroll indicator */}
       <motion.div
-        initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2.4 }}
+        initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2.8 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-10"
       >
         <span className="font-sans text-[10px] tracking-[0.3em] uppercase" style={{ color: "#A89070" }}>
