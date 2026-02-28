@@ -236,7 +236,7 @@ export const translations = {
       eyebrow: 'Eine tägliche Erinnerung',
       tagline: 'Jeden Tag geht die Sonne auf.',
       sub1: 'Unabhängig davon, was gestern passiert ist.',
-      sub2: 'Das gleiche Leben. Eine andere Perspektive.',
+      sub2: 'The same life. A different perspective.',
       cta1: 'Heute beginnen',
       cta2: 'Die Geschichte lesen',
       scroll: 'Scrollen',
@@ -311,7 +311,7 @@ export const translations = {
         'Jede Wahl.',
         'Jeden Atemzug.',
       ],
-      tagline: 'Das gleiche Leben. Eine andere Perspektive.',
+      tagline: 'The same life. A different perspective.',
     },
     cta: {
       heading: 'Heute beginnen.',
@@ -324,7 +324,7 @@ export const translations = {
       welcome: 'Willkommen bei The Daily Sunrise.',
     },
     footer: {
-      tagline: 'Das gleiche Leben — eine andere Perspektive',
+      tagline: 'The same life — a different perspective',
       nav: 'Navigation',
       follow: 'Folgen',
       rights: 'Alle Rechte vorbehalten.',
@@ -346,7 +346,7 @@ export const translations = {
       eyebrow: 'Un rappel quotidien',
       tagline: 'Chaque jour, le soleil se lève.',
       sub1: 'Peu importe ce qui s\'est passé hier.',
-      sub2: 'La même vie. Une perspective différente.',
+      sub2: 'The same life. A different perspective.',
       cta1: 'Commencer aujourd\'hui',
       cta2: 'Lire l\'histoire',
       scroll: 'Défiler',
@@ -421,7 +421,7 @@ export const translations = {
         'Chaque choix.',
         'Chaque souffle.',
       ],
-      tagline: 'La même vie. Une perspective différente.',
+      tagline: 'The same life. A different perspective.',
     },
     cta: {
       heading: 'Commencer aujourd\'hui.',
@@ -434,7 +434,7 @@ export const translations = {
       welcome: 'Bienvenue à The Daily Sunrise.',
     },
     footer: {
-      tagline: 'La même vie — une perspective différente',
+      tagline: 'The same life — a different perspective',
       nav: 'Navigation',
       follow: 'Suivre',
       rights: 'Tous droits réservés.',

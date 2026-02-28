@@ -20,7 +20,8 @@ export default function CTABanner() {
     <section
       id="signup"
       ref={ref}
-      className="relative section-pad overflow-hidden bg-deep-950 flex items-center justify-center text-center"
+      className="relative section-pad overflow-hidden flex items-center justify-center text-center"
+      style={{ backgroundColor: "#1A1610" }}
     >
       {/* Pulsing sunrise glow */}
       <div
@@ -46,7 +47,8 @@ export default function CTABanner() {
           initial={{ opacity: 0, y: 32 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-          className="font-serif text-5xl md:text-7xl font-bold text-cream-100 leading-tight mb-4"
+          className="font-serif text-5xl md:text-7xl font-bold leading-tight mb-4"
+          style={{ color: "#FFFDF6" }}
         >
           {t.cta.heading}
         </motion.h2>
@@ -77,7 +79,8 @@ export default function CTABanner() {
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 0.8, delay: 0.35 }}
-          className="font-sans text-base md:text-lg text-cream-muted leading-relaxed mb-10 max-w-xl mx-auto"
+          className="font-sans text-base md:text-lg leading-relaxed mb-10 max-w-xl mx-auto"
+          style={{ color: "#A89070" }}
         >
           {t.cta.body}
         </motion.p>
@@ -97,7 +100,8 @@ export default function CTABanner() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder={t.cta.placeholder}
-              className="flex-1 px-5 py-3.5 rounded-full bg-deep-800 border border-gold-rich/25 text-cream-100 placeholder:text-cream-dim text-sm focus:outline-none focus:border-gold-warm transition-colors"
+              className="flex-1 px-5 py-3.5 rounded-full border border-gold-rich/25 text-sm focus:outline-none focus:border-gold-warm transition-colors"
+              style={{ backgroundColor: "#2C2518", color: "#FFFDF6" }}
             />
             <button
               type="submit"

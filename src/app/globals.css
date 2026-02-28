@@ -2,57 +2,63 @@
 
 @import "tailwindcss";
 
-/* ── Tailwind v4 theme tokens ── */
+/* ── Tailwind v4 theme ── */
 @theme {
-  /* Sunrise yellows */
-  --color-sunrise-50:  #FFFBF0;
-  --color-sunrise-100: #FFF5D6;
-  --color-sunrise-200: #FFE9A8;
-  --color-sunrise-300: #FFD96B;
-  --color-sunrise-400: #FFC93A;
-  --color-sunrise-500: #F5B800;
-  --color-sunrise-600: #D49A00;
-  --color-sunrise-700: #A87A00;
+  /* ── PREMIUM "FIRST LIGHT" PALETTE ── */
 
-  /* Rich gold — premium accent */
-  --color-gold-rich:   #C4911A;
-  --color-gold-warm:   #D4A820;
-  --color-gold-bright: #E8C040;
-  --color-gold-pale:   #F2D98A;
-  --color-gold-glow:   #E0B030;
+  /* Sunrise gold — the sun itself */
+  --color-gold-rich:   #B8750E;
+  --color-gold-warm:   #C98A18;
+  --color-gold-bright: #E8A82A;
+  --color-gold-pale:   #F5CB6A;
+  --color-gold-glow:   #FDE8A8;
 
-  /* Deep dark backgrounds */
-  --color-deep-950: #070706;
-  --color-deep-900: #100F0D;
-  --color-deep-800: #1C1A16;
-  --color-deep-700: #2A2720;
-  --color-deep-600: #3A3730;
+  /* Warm backgrounds — light is sacred here */
+  --color-canvas:       #FFFDF6;   /* main background — pure morning light */
+  --color-canvas-warm:  #FFF8E8;   /* warm cream — alternate sections */
+  --color-canvas-gold:  #FEF2CC;   /* golden morning — feature sections */
+  --color-canvas-deep:  #FDEAB8;   /* deep amber — accent sections */
 
-  /* Sky blues */
-  --color-sky-50:  #F0F8FF;
-  --color-sky-100: #E0F2FE;
-  --color-sky-200: #BAE6FD;
-  --color-sky-300: #7BB8D4;
-  --color-sky-400: #5BA0C0;
-  --color-sky-500: #3B88A8;
+  /* Text — warm, never cold */
+  --color-ink:          #1A1610;   /* near-black with warm undertone */
+  --color-ink-warm:     #3D3424;   /* warm dark brown — body */
+  --color-ink-muted:    #7A6B52;   /* warm taupe — secondary */
+  --color-ink-dim:      #A89070;   /* stone — captions, meta */
 
-  /* Warm neutrals */
-  --color-warm-white: #FDFCF8;
-  --color-warm-cream: #F8F4EC;
-  --color-warm-sand:  #EDE8DC;
-  --color-warm-dark:  #2C2A26;
-  --color-warm-muted: #6B6560;
+  /* Horizon — used sparingly for sky feel */
+  --color-horizon:      #D8EAF5;
+  --color-horizon-deep: #B8CEDE;
 
-  /* Premium cream — for dark backgrounds */
-  --color-cream-100:   #FDF8EE;
-  --color-cream-200:   #F2EAD6;
-  --color-cream-muted: #B8AD9A;
-  --color-cream-dim:   #7A7268;
+  /* Dark — for footer, contrast moments */
+  --color-dark:         #1A1610;
+  --color-dark-warm:    #2C2518;
 
-  /* Nature */
-  --color-nature-100: #E8F0D4;
-  --color-nature-200: #D4E09B;
-  --color-nature-400: #96B040;
+  /* Legacy compat — map old names to new values */
+  --color-deep-950: #FFFDF6;
+  --color-deep-900: #FFF8E8;
+  --color-deep-800: #FEF2CC;
+  --color-deep-700: #F5E8D0;
+  --color-deep-600: #ECE0C8;
+
+  --color-cream-100:   #1A1610;
+  --color-cream-200:   #3D3424;
+  --color-cream-muted: #7A6B52;
+  --color-cream-dim:   #A89070;
+
+  --color-warm-white: #FFFDF6;
+  --color-warm-cream: #FFF8E8;
+  --color-warm-sand:  #F5E8D0;
+  --color-warm-dark:  #1A1610;
+  --color-warm-muted: #7A6B52;
+
+  /* sunrise compat (used in about/blog pages) */
+  --color-sunrise-50:  #FFFDF6;
+  --color-sunrise-100: #FEF9E8;
+  --color-sunrise-200: #FDE8A8;
+  --color-sunrise-300: #F5CB6A;
+  --color-sunrise-400: #E8A82A;
+  --color-sunrise-500: #C98A18;
+  --color-sunrise-600: #B8750E;
 
   /* Fonts */
   --font-serif:   'Playfair Display', Georgia, serif;
@@ -70,8 +76,8 @@ html {
 }
 
 body {
-  background-color: #100F0D;
-  color: #FDF8EE;
+  background-color: #FFFDF6;
+  color: #1A1610;
   font-family: Inter, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -80,9 +86,9 @@ body {
 
 /* ── Custom cursor ── */
 .custom-cursor {
-  width: 10px;
-  height: 10px;
-  background: #C4911A;
+  width: 8px;
+  height: 8px;
+  background: #C98A18;
   border-radius: 50%;
   position: fixed;
   top: 0;
@@ -90,13 +96,12 @@ body {
   pointer-events: none;
   z-index: 9999;
   transform: translate(-50%, -50%);
-  mix-blend-mode: screen;
 }
 
 .custom-cursor-ring {
-  width: 32px;
-  height: 32px;
-  border: 1px solid rgba(196, 145, 26, 0.45);
+  width: 28px;
+  height: 28px;
+  border: 1px solid rgba(201, 138, 24, 0.40);
   border-radius: 50%;
   position: fixed;
   top: 0;
@@ -108,30 +113,30 @@ body {
 
 /* ── Selection ── */
 ::selection {
-  background: #C4911A;
-  color: #070706;
+  background: #FDE8A8;
+  color: #1A1610;
 }
 
 /* ── Scrollbar ── */
 ::-webkit-scrollbar { width: 3px; }
-::-webkit-scrollbar-track { background: #100F0D; }
-::-webkit-scrollbar-thumb { background: #C4911A; border-radius: 2px; }
+::-webkit-scrollbar-track { background: #FFFDF6; }
+::-webkit-scrollbar-thumb { background: #C98A18; border-radius: 2px; }
 
-/* ── Wobble char ── */
-.wobble-char {
-  display: inline-block;
-}
-
-/* ── Text reveal ── */
-.text-reveal-container {
-  overflow: hidden;
-  display: inline-block;
-}
-
-/* ── Section spacing ── */
+/* ── Section spacing — generous for calm feel ── */
 .section-pad {
-  padding: 7rem 0;
+  padding: 8rem 0;
 }
+
+@media (max-width: 768px) {
+  .section-pad {
+    padding: 5rem 0;
+  }
+}
+
+/* ── Content max-width — NEVER full 100% ── */
+.content-wide  { max-width: 1100px; margin: 0 auto; padding: 0 clamp(24px, 5vw, 72px); }
+.content-mid   { max-width: 800px;  margin: 0 auto; padding: 0 clamp(24px, 5vw, 72px); }
+.content-text  { max-width: 640px;  margin: 0 auto; padding: 0 clamp(24px, 5vw, 72px); }
 
 /* ── Masonry grid ── */
 .masonry-grid {
@@ -142,58 +147,53 @@ body {
   break-inside: avoid;
   margin-bottom: 1.5rem;
 }
-
-@media (max-width: 1024px) {
-  .masonry-grid { columns: 2; }
-}
-@media (max-width: 640px) {
-  .masonry-grid { columns: 1; }
-}
+@media (max-width: 1024px) { .masonry-grid { columns: 2; } }
+@media (max-width: 640px)  { .masonry-grid { columns: 1; } }
 
 /* ── Scrollbar hide ── */
-.scrollbar-hide {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 .scrollbar-hide::-webkit-scrollbar { display: none; }
 
-/* ── Tree branch glow effect ── */
-.tree-zone {
-  transition: opacity 0.5s ease;
-  cursor: pointer;
-}
-
-/* ── Grain texture overlay ── */
+/* ── Grain texture — subtle warmth ── */
 .grain-overlay::before {
   content: '';
   position: absolute;
   inset: 0;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
-  opacity: 0.025;
+  opacity: 0.018;
   pointer-events: none;
   z-index: 1;
 }
 
-/* ── Premium card ── */
+/* ── Premium card — warm glass ── */
 .card-premium {
-  background: rgba(28, 26, 22, 0.8);
-  border: 1px solid rgba(196, 145, 26, 0.15);
-  backdrop-filter: blur(12px);
+  background: rgba(255, 253, 246, 0.95);
+  border: 1px solid rgba(201, 138, 24, 0.18);
+  box-shadow: 0 2px 24px rgba(180, 120, 20, 0.06);
   transition: border-color 0.4s ease, box-shadow 0.4s ease;
 }
 .card-premium:hover {
-  border-color: rgba(196, 145, 26, 0.45);
-  box-shadow: 0 8px 40px rgba(196, 145, 26, 0.08);
+  border-color: rgba(201, 138, 24, 0.42);
+  box-shadow: 0 8px 40px rgba(180, 120, 20, 0.10);
+}
+
+/* ── Gold horizontal rule ── */
+.hr-gold {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201, 138, 24, 0.45), transparent);
+  border: none;
 }
 
 /* ── Gold text glow ── */
 .text-gold-glow {
-  text-shadow: 0 0 40px rgba(196, 145, 26, 0.35);
+  text-shadow: 0 0 40px rgba(201, 138, 24, 0.3);
 }
 
-/* ── Horizontal rule premium ── */
-.hr-gold {
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(196, 145, 26, 0.4), transparent);
-  border: none;
+/* ── Sun overlay — time-of-day ambient ── */
+.sun-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  transition: background 4s ease;
 }

@@ -57,7 +57,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-deep-950 border-t border-gold-rich/10 text-cream-muted">
+    <footer className="border-t border-gold-rich/10" style={{ backgroundColor: "#1A1610", color: "#A89070" }}>
       <div className="max-w-7xl mx-auto px-6 py-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
           {/* Brand */}
@@ -72,7 +72,7 @@ export default function Footer() {
                   (e.currentTarget as HTMLImageElement).style.display = "none";
                 }}
               />
-              <span className="font-serif text-xl font-semibold text-cream-100">
+              <span className="font-serif text-xl font-semibold" style={{ color: "#FFFDF6" }}>
                 Daily Sunrise
               </span>
             </div>
@@ -94,7 +94,8 @@ export default function Footer() {
                 <Link
                   key={l.href}
                   href={l.href}
-                  className="block font-sans text-sm text-cream-dim hover:text-gold-bright transition-colors duration-200"
+                  className="block font-sans text-sm hover:text-gold-bright transition-colors duration-200"
+                  style={{ color: "#8A7A68" }}
                 >
                   {l.label}
                 </Link>
@@ -116,7 +117,8 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   aria-label={s.name}
                   whileHover={{ y: -3 }}
-                  className="text-cream-dim hover:text-gold-bright transition-colors"
+                  className="hover:text-gold-bright transition-colors"
+                  style={{ color: "#8A7A68" }}
                 >
                   {s.icon}
                 </motion.a>
@@ -127,10 +129,10 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="border-t border-gold-rich/10 pt-6 flex flex-col md:flex-row items-center justify-between gap-3">
-          <p className="font-sans text-xs text-cream-dim/50">
+          <p className="font-sans text-xs" style={{ color: "rgba(168,144,112,0.5)" }}>
             © {new Date().getFullYear()} Daily Sunrise. {t.footer.rights}
           </p>
-          <p className="font-sans text-xs text-cream-dim/50">
+          <p className="font-sans text-xs" style={{ color: "rgba(168,144,112,0.5)" }}>
             www.dailysunrise.com
           </p>
         </div>

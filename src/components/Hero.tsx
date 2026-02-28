@@ -5,252 +5,210 @@ import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion"
 import Link from "next/link";
 import { useTranslation } from "@/context/LanguageContext";
 
-/* ── Tree zone definitions ── */
 type ZoneId = "roots" | "trunk" | "branches" | "leaves" | "crown";
 
-/* ── Tree of Life SVG with 5 interactive zones ── */
-function TreeOfLife({ activeZone, onZoneEnter, onZoneLeave }: {
+/* ─────────────────────────────────────────────────────────────────────────────
+   Levensboom (Tree of Life) SVG
+   Organic design — proper tree of life with roots, trunk, branches, leaf dots
+   5 interactive zones
+───────────────────────────────────────────────────────────────────────────── */
+function LevensBoom({ activeZone, onZoneEnter, onZoneLeave }: {
   activeZone: ZoneId | null;
   onZoneEnter: (z: ZoneId) => void;
   onZoneLeave: () => void;
 }) {
-  const baseOpacity    = 0.22;
-  const activeOpacity  = 0.80;
-  const dimmedOpacity  = 0.07;
+  const base   = 0.50;
+  const active = 1.0;
+  const dimmed = 0.07;
 
-  function opacity(zone: ZoneId) {
-    if (activeZone === null) return baseOpacity;
-    return activeZone === zone ? activeOpacity : dimmedOpacity;
+  function o(zone: ZoneId) {
+    if (activeZone === null) return base;
+    return activeZone === zone ? active : dimmed;
   }
-
-  const trunkOpacity = activeZone === null ? baseOpacity :
-    activeZone === "trunk" ? activeOpacity : dimmedOpacity;
-
-  const circleOpacity = activeZone === null ? 0.18 :
-    activeZone === "crown" ? 0.5 : 0.06;
+  const circleO = activeZone === "crown" ? 0.70 : activeZone === null ? 0.32 : 0.06;
+  const trunkO  = activeZone === "trunk" ? active : activeZone === null ? base + 0.05 : dimmed;
+  const T       = "#8B5A0A"; // rich warm amber — perfect against cream
 
   return (
-    <svg
-      viewBox="0 0 500 580"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className="w-full h-full drop-shadow-none"
-      style={{ color: "#D4A820" }}
-    >
-      {/* Sacred circle — Crown zone visual */}
-      <motion.circle
-        cx="250" cy="280" r="225"
-        stroke="currentColor" strokeWidth="1.2"
-        animate={{ opacity: circleOpacity }}
-        transition={{ duration: 0.6 }}
-        style={{ cursor: "pointer" }}
-        onMouseEnter={() => onZoneEnter("crown")}
-        onMouseLeave={onZoneLeave}
-      />
-      <motion.circle
-        cx="250" cy="280" r="218"
-        stroke="currentColor" strokeWidth="0.5"
-        animate={{ opacity: circleOpacity * 0.6 }}
-        transition={{ duration: 0.6 }}
-      />
+    <svg viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
 
-      {/* ═══ ROOTS zone ═══ */}
-      <motion.g
-        animate={{ opacity: opacity("roots") }}
-        transition={{ duration: 0.5 }}
-        onMouseEnter={() => onZoneEnter("roots")}
-        onMouseLeave={onZoneLeave}
-        style={{ cursor: "pointer" }}
-      >
-        {/* Invisible hit area */}
-        <rect x="80" y="470" width="340" height="110" fill="transparent" />
-        {/* Root paths */}
-        <path d="M250 490 C250 510 250 525 250 542" stroke="currentColor" strokeWidth="6" strokeLinecap="round"/>
-        <path d="M246 480 C232 496 214 510 194 520" stroke="currentColor" strokeWidth="4" strokeLinecap="round"/>
-        <path d="M243 492 C222 510 196 524 168 532" stroke="currentColor" strokeWidth="3" strokeLinecap="round"/>
-        <path d="M240 502 C214 520 184 534 152 542" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-        <path d="M254 480 C268 496 286 510 306 520" stroke="currentColor" strokeWidth="4" strokeLinecap="round"/>
-        <path d="M257 492 C278 510 304 524 332 532" stroke="currentColor" strokeWidth="3" strokeLinecap="round"/>
-        <path d="M260 502 C286 520 316 534 348 542" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-        {/* Sub-roots */}
-        <path d="M194 520 C184 528 172 534 160 538" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-        <path d="M194 520 C192 530 190 538 188 544" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-        <path d="M168 532 C156 540 144 546 130 550" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-        <path d="M306 520 C316 528 328 534 340 538" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-        <path d="M306 520 C308 530 310 538 312 544" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-        <path d="M332 532 C344 540 356 546 370 550" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-        {/* Root tips */}
-        <circle cx="250" cy="542" r="3" fill="currentColor"/>
-        <circle cx="160" cy="538" r="2.5" fill="currentColor"/>
-        <circle cx="188" cy="544" r="2" fill="currentColor"/>
-        <circle cx="130" cy="550" r="2" fill="currentColor"/>
-        <circle cx="340" cy="538" r="2.5" fill="currentColor"/>
-        <circle cx="312" cy="544" r="2" fill="currentColor"/>
-        <circle cx="370" cy="550" r="2" fill="currentColor"/>
+      {/* ══ CROWN: circle frame + top branches ══ */}
+      <motion.g animate={{ opacity: circleO }} transition={{ duration: 0.7 }}
+        onMouseEnter={() => onZoneEnter("crown")} onMouseLeave={onZoneLeave} style={{ cursor: "pointer" }}>
+        <rect x="60" y="38" width="380" height="200" fill="transparent" />
+        <circle cx="250" cy="250" r="230" stroke={T} strokeWidth="2.5" />
+        <circle cx="250" cy="250" r="221" stroke={T} strokeWidth="0.8" strokeOpacity="0.45" />
+        <path d="M 250 180 C 250 162 249 142 248 116" stroke={T} strokeWidth="4" strokeLinecap="round"/>
+        <path d="M 249 152 C 230 136 210 124 192 118" stroke={T} strokeWidth="2.5" strokeLinecap="round"/>
+        <path d="M 249 152 C 268 136 290 124 308 118" stroke={T} strokeWidth="2.5" strokeLinecap="round"/>
+        <path d="M 249 132 C 232 118 215 108 198 102" stroke={T} strokeWidth="2" strokeLinecap="round"/>
+        <path d="M 249 132 C 266 118 283 108 300 102" stroke={T} strokeWidth="2" strokeLinecap="round"/>
+        <path d="M 192 118 C 180 113 170 111 161 113" stroke={T} strokeWidth="1.5" strokeLinecap="round"/>
+        <path d="M 308 118 C 320 113 330 111 339 113" stroke={T} strokeWidth="1.5" strokeLinecap="round"/>
+        <circle cx="248" cy="116" r="6" fill={T} />
+        <circle cx="192" cy="118" r="4.5" fill={T} />
+        <circle cx="308" cy="118" r="4.5" fill={T} />
+        <circle cx="198" cy="102" r="3.5" fill={T} />
+        <circle cx="300" cy="102" r="3.5" fill={T} />
+        <circle cx="161" cy="113" r="3" fill={T} />
+        <circle cx="339" cy="113" r="3" fill={T} />
+        <circle cx="248" cy="112" r="14" stroke={T} strokeWidth="1" strokeOpacity="0.30" />
+        <circle cx="248" cy="112" r="22" stroke={T} strokeWidth="0.5" strokeOpacity="0.15" />
       </motion.g>
 
-      {/* ═══ TRUNK zone ═══ */}
-      <motion.g
-        animate={{ opacity: trunkOpacity }}
-        transition={{ duration: 0.5 }}
-        onMouseEnter={() => onZoneEnter("trunk")}
-        onMouseLeave={onZoneLeave}
-        style={{ cursor: "pointer" }}
-      >
-        {/* Invisible hit area */}
-        <rect x="230" y="310" width="40" height="185" fill="transparent" />
-        {/* Main trunk */}
-        <path d="M247 490 C244 460 242 430 242 400 C242 370 243 350 245 330 C247 310 248 295 249 280 C249 265 249 250 249 235 C249 220 249 210 250 200"
-              stroke="currentColor" strokeWidth="11" strokeLinecap="round"/>
-        {/* Inner trunk highlight */}
-        <path d="M251 490 C251 460 252 430 252 400 C252 370 251 350 250 330 C250 310 250 295 250 280 C250 265 250 250 250 235"
-              stroke="currentColor" strokeWidth="5" strokeLinecap="round" strokeOpacity="0.35"/>
-        {/* Lowest branches — also part of trunk zone */}
-        <path d="M245 455 C228 440 206 428 180 420" stroke="currentColor" strokeWidth="7" strokeLinecap="round"/>
-        <path d="M255 455 C272 440 294 428 320 420" stroke="currentColor" strokeWidth="7" strokeLinecap="round"/>
-        <path d="M208 432 C194 422 178 414 162 410" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round"/>
-        <path d="M180 420 C168 410 156 402 144 398" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
-        <path d="M180 420 C172 432 162 440 150 444" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
-        <path d="M292 432 C306 422 322 414 338 410" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round"/>
-        <path d="M320 420 C332 410 344 402 356 398" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
-        <path d="M320 420 C328 432 338 440 350 444" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
-        {/* Tip circles */}
-        <circle cx="144" cy="398" r="3.5" fill="currentColor"/>
-        <circle cx="150" cy="444" r="3" fill="currentColor"/>
-        <circle cx="356" cy="398" r="3.5" fill="currentColor"/>
-        <circle cx="350" cy="444" r="3" fill="currentColor"/>
-        <circle cx="162" cy="410" r="2.5" fill="currentColor"/>
-        <circle cx="338" cy="410" r="2.5" fill="currentColor"/>
+      {/* ══ LEAVES: upper canopy branches ══ */}
+      <motion.g animate={{ opacity: o("leaves") }} transition={{ duration: 0.6 }}
+        onMouseEnter={() => onZoneEnter("leaves")} onMouseLeave={onZoneLeave} style={{ cursor: "pointer" }}>
+        <rect x="55" y="155" width="185" height="110" fill="transparent" />
+        <rect x="260" y="155" width="185" height="110" fill="transparent" />
+        <path d="M 247 198 C 222 182 196 172 170 166" stroke={T} strokeWidth="3" strokeLinecap="round"/>
+        <path d="M 253 198 C 278 182 304 172 330 166" stroke={T} strokeWidth="3" strokeLinecap="round"/>
+        <path d="M 170 166 C 157 162 146 160 137 163" stroke={T} strokeWidth="2" strokeLinecap="round"/>
+        <path d="M 330 166 C 343 162 354 160 363 163" stroke={T} strokeWidth="2" strokeLinecap="round"/>
+        <path d="M 170 166 C 162 155 152 147 140 143" stroke={T} strokeWidth="1.5" strokeLinecap="round"/>
+        <path d="M 330 166 C 338 155 348 147 360 143" stroke={T} strokeWidth="1.5" strokeLinecap="round"/>
+        <path d="M 170 166 C 165 178 158 187 148 192" stroke={T} strokeWidth="1.5" strokeLinecap="round"/>
+        <path d="M 330 166 C 335 178 342 187 352 192" stroke={T} strokeWidth="1.5" strokeLinecap="round"/>
+        <path d="M 246 220 C 216 203 183 191 153 185" stroke={T} strokeWidth="3.5" strokeLinecap="round"/>
+        <path d="M 254 220 C 284 203 317 191 347 185" stroke={T} strokeWidth="3.5" strokeLinecap="round"/>
+        <path d="M 153 185 C 139 181 128 180 118 183" stroke={T} strokeWidth="2" strokeLinecap="round"/>
+        <path d="M 347 185 C 361 181 372 180 382 183" stroke={T} strokeWidth="2" strokeLinecap="round"/>
+        <path d="M 153 185 C 144 174 133 166 120 162" stroke={T} strokeWidth="1.5" strokeLinecap="round"/>
+        <path d="M 347 185 C 356 174 367 166 380 162" stroke={T} strokeWidth="1.5" strokeLinecap="round"/>
+        <circle cx="137" cy="163" r="4.5" fill={T} />
+        <circle cx="363" cy="163" r="4.5" fill={T} />
+        <circle cx="140" cy="143" r="3.5" fill={T} />
+        <circle cx="360" cy="143" r="3.5" fill={T} />
+        <circle cx="148" cy="192" r="3" fill={T} />
+        <circle cx="352" cy="192" r="3" fill={T} />
+        <circle cx="118" cy="183" r="4.5" fill={T} />
+        <circle cx="382" cy="183" r="4.5" fill={T} />
+        <circle cx="120" cy="162" r="3.5" fill={T} />
+        <circle cx="380" cy="162" r="3.5" fill={T} />
       </motion.g>
 
-      {/* ═══ BRANCHES zone ═══ */}
-      <motion.g
-        animate={{ opacity: opacity("branches") }}
-        transition={{ duration: 0.5 }}
-        onMouseEnter={() => onZoneEnter("branches")}
-        onMouseLeave={onZoneLeave}
-        style={{ cursor: "pointer" }}
-      >
-        {/* Hit areas */}
-        <rect x="60" y="340" width="180" height="80" fill="transparent" />
-        <rect x="260" y="340" width="180" height="80" fill="transparent" />
-        {/* Mid-low branches */}
-        <path d="M244 402 C222 382 194 368 162 358" stroke="currentColor" strokeWidth="6" strokeLinecap="round"/>
-        <path d="M256 402 C278 382 306 368 338 358" stroke="currentColor" strokeWidth="6" strokeLinecap="round"/>
-        <path d="M196 372 C178 358 160 348 140 342" stroke="currentColor" strokeWidth="3" strokeLinecap="round"/>
-        <path d="M162 358 C148 346 134 336 120 330" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
-        <path d="M162 358 C154 372 144 382 132 388" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-        <path d="M304 372 C322 358 340 348 360 342" stroke="currentColor" strokeWidth="3" strokeLinecap="round"/>
-        <path d="M338 358 C352 346 366 336 380 330" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
-        <path d="M338 358 C346 372 356 382 368 388" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-        {/* Middle branches */}
-        <path d="M244 362 C218 338 186 320 150 308" stroke="currentColor" strokeWidth="5" strokeLinecap="round"/>
-        <path d="M256 362 C282 338 314 320 350 308" stroke="currentColor" strokeWidth="5" strokeLinecap="round"/>
-        <path d="M190 324 C170 308 150 296 128 288" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
-        <path d="M150 308 C134 294 118 282 102 276" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-        <path d="M150 308 C140 322 128 332 114 338" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-        <path d="M310 324 C330 308 350 296 372 288" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
-        <path d="M350 308 C366 294 382 282 398 276" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-        <path d="M350 308 C360 322 372 332 386 338" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-        {/* Tip circles */}
-        <circle cx="120" cy="330" r="3.5" fill="currentColor"/>
-        <circle cx="132" cy="388" r="3" fill="currentColor"/>
-        <circle cx="102" cy="276" r="3" fill="currentColor"/>
-        <circle cx="114" cy="338" r="3" fill="currentColor"/>
-        <circle cx="128" cy="288" r="2.5" fill="currentColor"/>
-        <circle cx="140" cy="342" r="2.5" fill="currentColor"/>
-        <circle cx="380" cy="330" r="3.5" fill="currentColor"/>
-        <circle cx="368" cy="388" r="3" fill="currentColor"/>
-        <circle cx="398" cy="276" r="3" fill="currentColor"/>
-        <circle cx="386" cy="338" r="3" fill="currentColor"/>
-        <circle cx="372" cy="288" r="2.5" fill="currentColor"/>
-        <circle cx="360" cy="342" r="2.5" fill="currentColor"/>
+      {/* ══ BRANCHES: main lateral structure ══ */}
+      <motion.g animate={{ opacity: o("branches") }} transition={{ duration: 0.6 }}
+        onMouseEnter={() => onZoneEnter("branches")} onMouseLeave={onZoneLeave} style={{ cursor: "pointer" }}>
+        <rect x="50" y="250" width="185" height="115" fill="transparent" />
+        <rect x="265" y="250" width="185" height="115" fill="transparent" />
+        <path d="M 244 326 C 198 302 148 282 104 272" stroke={T} strokeWidth="7" strokeLinecap="round"/>
+        <path d="M 256 326 C 302 302 352 282 396 272" stroke={T} strokeWidth="7" strokeLinecap="round"/>
+        <path d="M 104 272 C 84 267 68 264 54 267" stroke={T} strokeWidth="4.5" strokeLinecap="round"/>
+        <path d="M 396 272 C 416 267 432 264 446 267" stroke={T} strokeWidth="4.5" strokeLinecap="round"/>
+        <path d="M 104 272 C 90 260 76 250 62 246" stroke={T} strokeWidth="3" strokeLinecap="round"/>
+        <path d="M 104 272 C 96 287 86 298 74 303" stroke={T} strokeWidth="3" strokeLinecap="round"/>
+        <path d="M 396 272 C 410 260 424 250 438 246" stroke={T} strokeWidth="3" strokeLinecap="round"/>
+        <path d="M 396 272 C 404 287 414 298 426 303" stroke={T} strokeWidth="3" strokeLinecap="round"/>
+        <path d="M 244 298 C 200 276 154 260 112 252" stroke={T} strokeWidth="6" strokeLinecap="round"/>
+        <path d="M 256 298 C 300 276 346 260 388 252" stroke={T} strokeWidth="6" strokeLinecap="round"/>
+        <path d="M 112 252 C 94 248 80 246 68 249" stroke={T} strokeWidth="3.5" strokeLinecap="round"/>
+        <path d="M 388 252 C 406 248 420 246 432 249" stroke={T} strokeWidth="3.5" strokeLinecap="round"/>
+        <path d="M 112 252 C 100 240 86 230 72 225" stroke={T} strokeWidth="2.5" strokeLinecap="round"/>
+        <path d="M 388 252 C 400 240 414 230 428 225" stroke={T} strokeWidth="2.5" strokeLinecap="round"/>
+        <path d="M 244 272 C 205 252 163 237 124 229" stroke={T} strokeWidth="5.5" strokeLinecap="round"/>
+        <path d="M 256 272 C 295 252 337 237 376 229" stroke={T} strokeWidth="5.5" strokeLinecap="round"/>
+        <path d="M 124 229 C 106 225 92 223 80 226" stroke={T} strokeWidth="3" strokeLinecap="round"/>
+        <path d="M 376 229 C 394 225 408 223 420 226" stroke={T} strokeWidth="3" strokeLinecap="round"/>
+        <path d="M 124 229 C 113 217 100 209 86 204" stroke={T} strokeWidth="2" strokeLinecap="round"/>
+        <path d="M 376 229 C 387 217 400 209 414 204" stroke={T} strokeWidth="2" strokeLinecap="round"/>
+        <path d="M 245 248 C 210 230 172 216 136 208" stroke={T} strokeWidth="5" strokeLinecap="round"/>
+        <path d="M 255 248 C 290 230 328 216 364 208" stroke={T} strokeWidth="5" strokeLinecap="round"/>
+        <path d="M 136 208 C 120 204 108 202 98 205" stroke={T} strokeWidth="2.5" strokeLinecap="round"/>
+        <path d="M 364 208 C 380 204 392 202 402 205" stroke={T} strokeWidth="2.5" strokeLinecap="round"/>
+        <circle cx="54" cy="267" r="5.5" fill={T} />
+        <circle cx="446" cy="267" r="5.5" fill={T} />
+        <circle cx="62" cy="246" r="4.5" fill={T} />
+        <circle cx="438" cy="246" r="4.5" fill={T} />
+        <circle cx="74" cy="303" r="4" fill={T} />
+        <circle cx="426" cy="303" r="4" fill={T} />
+        <circle cx="68" cy="249" r="4.5" fill={T} />
+        <circle cx="432" cy="249" r="4.5" fill={T} />
+        <circle cx="72" cy="225" r="3.5" fill={T} />
+        <circle cx="428" cy="225" r="3.5" fill={T} />
+        <circle cx="80" cy="226" r="4" fill={T} />
+        <circle cx="420" cy="226" r="4" fill={T} />
+        <circle cx="86" cy="204" r="3.5" fill={T} />
+        <circle cx="414" cy="204" r="3.5" fill={T} />
+        <circle cx="98" cy="205" r="4" fill={T} />
+        <circle cx="402" cy="205" r="4" fill={T} />
       </motion.g>
 
-      {/* ═══ LEAVES zone ═══ */}
-      <motion.g
-        animate={{ opacity: opacity("leaves") }}
-        transition={{ duration: 0.5 }}
-        onMouseEnter={() => onZoneEnter("leaves")}
-        onMouseLeave={onZoneLeave}
-        style={{ cursor: "pointer" }}
-      >
-        {/* Hit areas */}
-        <rect x="60" y="240" width="180" height="100" fill="transparent" />
-        <rect x="260" y="240" width="180" height="100" fill="transparent" />
-        {/* Upper branches */}
-        <path d="M245 318 C222 294 194 276 162 264" stroke="currentColor" strokeWidth="4" strokeLinecap="round"/>
-        <path d="M255 318 C278 294 306 276 338 264" stroke="currentColor" strokeWidth="4" strokeLinecap="round"/>
-        <path d="M196 280 C178 264 158 252 136 246" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-        <path d="M162 264 C148 250 132 240 116 234" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-        <path d="M162 264 C154 278 144 288 132 294" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-        <path d="M304 280 C322 264 342 252 364 246" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-        <path d="M338 264 C352 250 368 240 384 234" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-        <path d="M338 264 C346 278 356 288 368 294" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-        {/* Tip circles */}
-        <circle cx="116" cy="234" r="3.5" fill="currentColor"/>
-        <circle cx="132" cy="294" r="3" fill="currentColor"/>
-        <circle cx="136" cy="246" r="2.5" fill="currentColor"/>
-        <circle cx="384" cy="234" r="3.5" fill="currentColor"/>
-        <circle cx="368" cy="294" r="3" fill="currentColor"/>
-        <circle cx="364" cy="246" r="2.5" fill="currentColor"/>
+      {/* ══ TRUNK: the spine ══ */}
+      <motion.g animate={{ opacity: trunkO }} transition={{ duration: 0.6 }}
+        onMouseEnter={() => onZoneEnter("trunk")} onMouseLeave={onZoneLeave} style={{ cursor: "pointer" }}>
+        <rect x="230" y="180" width="40" height="195" fill="transparent" />
+        <path
+          d="M 243 368 C 241 338 240 306 241 274 C 242 250 244 230 247 210 L 248 194 C 249 188 250 184 250 181 C 250 184 251 188 252 194 L 253 210 C 256 230 258 250 259 274 C 260 306 259 338 257 368 Z"
+          fill={T} fillOpacity="0.88"
+        />
+        <path d="M 250 362 C 250 336 250 308 250 282 C 250 256 250 228 250 206 C 250 196 250 188 250 183"
+          stroke="#FFFDF6" strokeWidth="1.5" strokeOpacity="0.22" strokeLinecap="round"/>
+        <path d="M 244 350 C 222 338 196 328 170 322" stroke={T} strokeWidth="9" strokeLinecap="round"/>
+        <path d="M 256 350 C 278 338 304 328 330 322" stroke={T} strokeWidth="9" strokeLinecap="round"/>
+        <path d="M 170 322 C 150 317 132 314 116 316" stroke={T} strokeWidth="5.5" strokeLinecap="round"/>
+        <path d="M 330 322 C 350 317 368 314 384 316" stroke={T} strokeWidth="5.5" strokeLinecap="round"/>
+        <path d="M 170 322 C 154 310 136 300 118 295" stroke={T} strokeWidth="4" strokeLinecap="round"/>
+        <path d="M 330 322 C 346 310 364 300 382 295" stroke={T} strokeWidth="4" strokeLinecap="round"/>
+        <path d="M 116 316 C 100 312 86 310 74 313" stroke={T} strokeWidth="3.5" strokeLinecap="round"/>
+        <path d="M 384 316 C 400 312 414 310 426 313" stroke={T} strokeWidth="3.5" strokeLinecap="round"/>
+        <circle cx="74" cy="313" r="5" fill={T} />
+        <circle cx="426" cy="313" r="5" fill={T} />
+        <circle cx="118" cy="295" r="4.5" fill={T} />
+        <circle cx="382" cy="295" r="4.5" fill={T} />
       </motion.g>
 
-      {/* ═══ CROWN zone ═══ */}
-      <motion.g
-        animate={{ opacity: opacity("crown") }}
-        transition={{ duration: 0.5 }}
-        onMouseEnter={() => onZoneEnter("crown")}
-        onMouseLeave={onZoneLeave}
-        style={{ cursor: "pointer" }}
-      >
-        {/* Hit area */}
-        <rect x="100" y="130" width="300" height="155" fill="transparent" />
-        {/* Top pair branches */}
-        <path d="M246 278 C228 256 206 240 180 228" stroke="currentColor" strokeWidth="3" strokeLinecap="round"/>
-        <path d="M254 278 C272 256 294 240 320 228" stroke="currentColor" strokeWidth="3" strokeLinecap="round"/>
-        <path d="M208 244 C194 230 178 220 160 214" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-        <path d="M180 228 C166 216 152 206 136 200" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-        <path d="M180 228 C172 242 162 252 150 258" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-        <path d="M292 244 C306 230 322 220 340 214" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-        <path d="M320 228 C334 216 348 206 364 200" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-        <path d="M320 228 C328 242 338 252 350 258" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-        {/* Center top */}
-        <path d="M249 240 C248 218 247 196 246 174" stroke="currentColor" strokeWidth="3" strokeLinecap="round"/>
-        <path d="M246 210 C236 196 224 186 210 180" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-        <path d="M246 210 C256 196 268 186 282 180" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-        <path d="M246 174 C236 162 224 152 210 146" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-        <path d="M246 174 C256 162 268 152 282 146" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-        {/* Crown tips */}
-        <circle cx="136" cy="200" r="3" fill="currentColor"/>
-        <circle cx="150" cy="258" r="3" fill="currentColor"/>
-        <circle cx="160" cy="214" r="2.5" fill="currentColor"/>
-        <circle cx="210" cy="146" r="4" fill="currentColor"/>
-        <circle cx="282" cy="146" r="4" fill="currentColor"/>
-        <circle cx="246" cy="174" r="5" fill="currentColor"/>
-        <circle cx="210" cy="180" r="2.5" fill="currentColor"/>
-        <circle cx="282" cy="180" r="2.5" fill="currentColor"/>
-        <circle cx="340" cy="214" r="2.5" fill="currentColor"/>
-        <circle cx="364" cy="200" r="3" fill="currentColor"/>
-        <circle cx="350" cy="258" r="3" fill="currentColor"/>
-        {/* Crown halo */}
-        <circle cx="246" cy="174" r="12" fill="none" stroke="currentColor" strokeWidth="0.8" strokeOpacity="0.5"/>
+      {/* ══ ROOTS: the foundation ══ */}
+      <motion.g animate={{ opacity: o("roots") }} transition={{ duration: 0.6 }}
+        onMouseEnter={() => onZoneEnter("roots")} onMouseLeave={onZoneLeave} style={{ cursor: "pointer" }}>
+        <rect x="60" y="365" width="380" height="115" fill="transparent" />
+        <path d="M 250 368 C 250 390 250 412 250 432" stroke={T} strokeWidth="11" strokeLinecap="round"/>
+        <path d="M 244 380 C 198 402 148 422 104 433" stroke={T} strokeWidth="7" strokeLinecap="round"/>
+        <path d="M 256 380 C 302 402 352 422 396 433" stroke={T} strokeWidth="7" strokeLinecap="round"/>
+        <path d="M 104 433 C 84 438 68 440 54 437" stroke={T} strokeWidth="4.5" strokeLinecap="round"/>
+        <path d="M 396 433 C 416 438 432 440 446 437" stroke={T} strokeWidth="4.5" strokeLinecap="round"/>
+        <path d="M 104 433 C 90 445 75 454 60 458" stroke={T} strokeWidth="3" strokeLinecap="round"/>
+        <path d="M 104 433 C 97 418 88 407 76 402" stroke={T} strokeWidth="3" strokeLinecap="round"/>
+        <path d="M 396 433 C 410 445 425 454 440 458" stroke={T} strokeWidth="3" strokeLinecap="round"/>
+        <path d="M 396 433 C 403 418 412 407 424 402" stroke={T} strokeWidth="3" strokeLinecap="round"/>
+        <path d="M 244 398 C 202 420 158 440 116 450" stroke={T} strokeWidth="6" strokeLinecap="round"/>
+        <path d="M 256 398 C 298 420 342 440 384 450" stroke={T} strokeWidth="6" strokeLinecap="round"/>
+        <path d="M 116 450 C 98 455 84 457 72 454" stroke={T} strokeWidth="3.5" strokeLinecap="round"/>
+        <path d="M 384 450 C 402 455 416 457 428 454" stroke={T} strokeWidth="3.5" strokeLinecap="round"/>
+        <path d="M 245 415 C 210 434 174 450 140 459" stroke={T} strokeWidth="5" strokeLinecap="round"/>
+        <path d="M 255 415 C 290 434 326 450 360 459" stroke={T} strokeWidth="5" strokeLinecap="round"/>
+        <path d="M 140 459 C 124 463 112 465 102 462" stroke={T} strokeWidth="3" strokeLinecap="round"/>
+        <path d="M 360 459 C 376 463 388 465 398 462" stroke={T} strokeWidth="3" strokeLinecap="round"/>
+        <path d="M 250 432 C 234 448 218 460 202 466" stroke={T} strokeWidth="5.5" strokeLinecap="round"/>
+        <path d="M 250 432 C 266 448 282 460 298 466" stroke={T} strokeWidth="5.5" strokeLinecap="round"/>
+        <path d="M 202 466 C 192 470 183 472 175 470" stroke={T} strokeWidth="3" strokeLinecap="round"/>
+        <path d="M 298 466 C 308 470 317 472 325 470" stroke={T} strokeWidth="3" strokeLinecap="round"/>
+        <circle cx="54" cy="437" r="5.5" fill={T} />
+        <circle cx="446" cy="437" r="5.5" fill={T} />
+        <circle cx="60" cy="458" r="4.5" fill={T} />
+        <circle cx="440" cy="458" r="4.5" fill={T} />
+        <circle cx="76" cy="402" r="4" fill={T} />
+        <circle cx="424" cy="402" r="4" fill={T} />
+        <circle cx="72" cy="454" r="4.5" fill={T} />
+        <circle cx="428" cy="454" r="4.5" fill={T} />
+        <circle cx="102" cy="462" r="4" fill={T} />
+        <circle cx="398" cy="462" r="4" fill={T} />
+        <circle cx="175" cy="470" r="3.5" fill={T} />
+        <circle cx="325" cy="470" r="3.5" fill={T} />
+        <circle cx="250" cy="432" r="4.5" fill={T} />
       </motion.g>
     </svg>
   );
 }
 
-/* ── Zone label box ── */
-function ZoneLabel({ zone, zoneData }: {
-  zone: ZoneId;
-  zoneData: { title: string; desc: string };
-}) {
+/* ── Zone tooltip ── */
+function ZoneLabel({ zone, zoneData }: { zone: ZoneId; zoneData: { title: string; desc: string } }) {
   const positions: Record<ZoneId, string> = {
-    roots:    "bottom-[12%] left-1/2 -translate-x-1/2",
-    trunk:    "bottom-[28%] right-[8%]",
-    branches: "top-[52%] left-[5%]",
-    leaves:   "top-[32%] right-[6%]",
-    crown:    "top-[10%] left-1/2 -translate-x-1/2",
+    roots:    "bottom-[8%]  left-1/2 -translate-x-1/2",
+    trunk:    "bottom-[30%] right-[2%]",
+    branches: "top-[50%]   left-[0%]",
+    leaves:   "top-[26%]   right-[2%]",
+    crown:    "top-[5%]    left-1/2 -translate-x-1/2",
   };
 
   return (
@@ -258,15 +216,19 @@ function ZoneLabel({ zone, zoneData }: {
       key={zone}
       initial={{ opacity: 0, y: 8, scale: 0.96 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
-      exit={{ opacity: 0, y: -4, scale: 0.98 }}
-      transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-      className={`absolute ${positions[zone]} max-w-[220px] z-20 pointer-events-none`}
+      exit={{ opacity: 0, y: -4 }}
+      transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+      className={`absolute ${positions[zone]} max-w-[200px] z-20 pointer-events-none`}
     >
-      <div className="card-premium rounded-xl px-5 py-4">
-        <p className="font-serif text-base font-semibold text-gold-bright mb-1.5 leading-tight">
+      <div className="rounded-xl px-4 py-3.5" style={{
+        background: "#FFFDF6",
+        border: "1px solid rgba(139,90,10,0.22)",
+        boxShadow: "0 4px 24px rgba(180,120,20,0.10)"
+      }}>
+        <p className="font-serif text-sm font-semibold mb-1.5 leading-tight" style={{ color: "#8B5A0A" }}>
           {zoneData.title}
         </p>
-        <p className="font-sans text-xs text-cream-muted leading-relaxed">
+        <p className="font-sans text-xs leading-relaxed" style={{ color: "#7A6B52" }}>
           {zoneData.desc}
         </p>
       </div>
@@ -284,68 +246,53 @@ export default function Hero() {
     target: containerRef,
     offset: ["start start", "end start"],
   });
-  const y       = useTransform(scrollYProgress, [0, 1], [0, -80]);
-  const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
+  const y       = useTransform(scrollYProgress, [0, 1], [0, -60]);
+  const opacity = useTransform(scrollYProgress, [0, 0.65], [1, 0]);
 
-  const zoneData = activeZone ? t.hero.zone[activeZone] : null;
-
-  /* Title words for staggered reveal */
+  const zoneData   = activeZone ? t.hero.zone[activeZone] : null;
   const titleWords = t.hero.tagline.split(" ");
 
   return (
     <section
       ref={containerRef}
-      className="relative min-h-screen bg-deep-950 overflow-hidden flex items-center"
+      className="relative min-h-screen overflow-hidden flex items-center"
+      style={{ background: "linear-gradient(175deg, #FFFDF6 0%, #FFF8E8 55%, #FEF2CC 100%)" }}
     >
-      {/* Grain texture */}
       <div className="grain-overlay absolute inset-0 pointer-events-none" />
 
-      {/* Ambient glow — bottom center (sunrise) */}
+      {/* Warm sunrise glow from below */}
       <div
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[700px] h-[400px] pointer-events-none"
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] pointer-events-none"
         style={{
-          background: "radial-gradient(ellipse at 50% 100%, rgba(196,145,26,0.10) 0%, rgba(196,145,26,0.04) 40%, transparent 70%)",
-        }}
-      />
-
-      {/* Vignette edges */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: "radial-gradient(ellipse at 50% 50%, transparent 30%, rgba(7,7,6,0.65) 100%)",
+          background: "radial-gradient(ellipse at 50% 100%, rgba(201,138,24,0.14) 0%, rgba(201,138,24,0.04) 55%, transparent 78%)",
         }}
       />
 
       <motion.div
         style={{ y, opacity }}
-        className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12 pt-24 pb-20 flex flex-col lg:flex-row items-center gap-12 lg:gap-8"
+        className="relative z-10 w-full content-wide pt-28 pb-20 flex flex-col lg:flex-row items-center gap-12 lg:gap-16"
       >
-        {/* ── LEFT: Text content ── */}
-        <div className="flex-1 lg:max-w-[48%] text-center lg:text-left">
-
-          {/* Eyebrow */}
+        {/* LEFT: Text */}
+        <div className="flex-1 lg:max-w-[46%] text-center lg:text-left">
           <motion.p
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="font-sans text-xs font-medium tracking-[0.25em] text-gold-warm uppercase mb-8"
+            className="font-sans text-xs font-medium tracking-[0.28em] uppercase mb-8"
+            style={{ color: "#C98A18" }}
           >
             {t.hero.eyebrow}
           </motion.p>
 
-          {/* Main title — word stagger */}
-          <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-cream-100 leading-[1.02] mb-6">
+          <h1 className="font-serif font-bold leading-[1.02] mb-6"
+            style={{ fontSize: "clamp(2.8rem, 6vw, 5rem)", color: "#1A1610" }}>
             {titleWords.map((word, i) => (
-              <span key={i} className="overflow-hidden inline-block mr-4">
+              <span key={i} className="overflow-hidden inline-block mr-3">
                 <motion.span
                   className="inline-block"
                   initial={{ y: "100%", opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
-                  transition={{
-                    duration: 0.9,
-                    delay: 0.4 + i * 0.12,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
+                  transition={{ duration: 0.9, delay: 0.4 + i * 0.12, ease: [0.22, 1, 0.36, 1] }}
                 >
                   {word}
                 </motion.span>
@@ -353,88 +300,70 @@ export default function Hero() {
             ))}
           </h1>
 
-          {/* Sub-lines */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.9 }}
-            className="mb-4"
-          >
-            <p className="font-display text-xl md:text-2xl text-cream-muted italic font-light leading-snug">
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.85 }} className="mb-4">
+            <p className="font-display text-xl md:text-2xl italic font-light leading-snug" style={{ color: "#7A6B52" }}>
               {t.hero.sub1}
             </p>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 1.1 }}
-          >
-            <hr className="hr-gold my-6 max-w-[160px] mx-auto lg:mx-0" />
-            <p className="font-sans text-sm text-cream-muted tracking-wide">
-              {t.hero.sub2}
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 1.05 }}>
+            <hr className="hr-gold my-6 max-w-[140px] mx-auto lg:mx-0" />
+            {/* THE TAGLINE — NEVER TRANSLATED */}
+            <p className="font-sans text-sm tracking-wide" style={{ color: "#A89070" }}>
+              The same life. A different perspective.
             </p>
           </motion.div>
 
-          {/* CTAs */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 1.3 }}
+            transition={{ duration: 0.9, delay: 1.25 }}
             className="flex flex-col sm:flex-row gap-4 mt-10 justify-center lg:justify-start"
           >
-            <Link
-              href="/blog"
-              className="inline-flex items-center justify-center px-8 py-3.5 rounded-full text-sm font-medium text-deep-950 bg-gold-warm hover:bg-gold-bright transition-all duration-300 hover:shadow-[0_0_24px_rgba(196,145,26,0.35)]"
-            >
+            <Link href="/blog"
+              className="inline-flex items-center justify-center px-8 py-3.5 rounded-full text-sm font-medium transition-all duration-300 hover:opacity-80"
+              style={{ background: "#1A1610", color: "#FFFDF6" }}>
               {t.hero.cta1}
             </Link>
-            <Link
-              href="/about"
-              className="inline-flex items-center justify-center px-8 py-3.5 rounded-full text-sm font-medium text-cream-200 border border-cream-muted/25 hover:border-gold-warm hover:text-gold-bright transition-all duration-300"
-            >
+            <Link href="/about"
+              className="inline-flex items-center justify-center px-8 py-3.5 rounded-full text-sm font-medium transition-all duration-300"
+              style={{ border: "1.5px solid rgba(139,90,10,0.35)", color: "#8B5A0A" }}>
               {t.hero.cta2}
             </Link>
           </motion.div>
         </div>
 
-        {/* ── RIGHT: Interactive Tree ── */}
+        {/* RIGHT: Levensboom */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.94 }}
+          initial={{ opacity: 0, scale: 0.92 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.4, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-          className="relative flex-1 w-full max-w-[480px] lg:max-w-[520px] aspect-[500/580]"
+          transition={{ duration: 1.6, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          className="relative flex-1 w-full max-w-[460px] lg:max-w-[490px] aspect-square"
         >
-          {/* Warm aura behind tree */}
           <div
             className="absolute inset-0 rounded-full pointer-events-none"
-            style={{
-              background: "radial-gradient(ellipse at 50% 60%, rgba(196,145,26,0.06) 0%, transparent 65%)",
-            }}
+            style={{ background: "radial-gradient(ellipse at 50% 55%, rgba(201,138,24,0.09) 0%, transparent 68%)" }}
           />
 
-          <TreeOfLife
+          <LevensBoom
             activeZone={activeZone}
             onZoneEnter={setActiveZone}
             onZoneLeave={() => setActiveZone(null)}
           />
 
-          {/* Zone label — appears on hover */}
           <AnimatePresence mode="wait">
             {activeZone && zoneData && (
               <ZoneLabel key={activeZone} zone={activeZone} zoneData={zoneData} />
             )}
           </AnimatePresence>
 
-          {/* Hover hint — only when no zone active */}
           <AnimatePresence>
             {!activeZone && (
               <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ delay: 2, duration: 1 }}
-                className="absolute bottom-[-2rem] left-1/2 -translate-x-1/2 text-center font-sans text-xs text-cream-dim tracking-[0.18em] uppercase whitespace-nowrap"
+                initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                transition={{ delay: 2.5, duration: 1.2 }}
+                className="absolute bottom-[-2.2rem] left-1/2 -translate-x-1/2 text-center font-sans text-xs tracking-[0.18em] uppercase whitespace-nowrap"
+                style={{ color: "#A89070" }}
               >
                 {t.hero.explore}
               </motion.p>
@@ -445,16 +374,16 @@ export default function Hero() {
 
       {/* Scroll indicator */}
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2.2 }}
+        initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2.4 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-10"
       >
-        <span className="font-sans text-[10px] tracking-[0.3em] text-cream-dim uppercase">{t.hero.scroll}</span>
+        <span className="font-sans text-[10px] tracking-[0.3em] uppercase" style={{ color: "#A89070" }}>
+          {t.hero.scroll}
+        </span>
         <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-          className="w-px h-10 bg-gradient-to-b from-gold-warm/60 to-transparent"
+          animate={{ y: [0, 10, 0] }} transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          className="w-px h-10"
+          style={{ background: "linear-gradient(to bottom, rgba(201,138,24,0.5), transparent)" }}
         />
       </motion.div>
     </section>

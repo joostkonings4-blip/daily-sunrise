@@ -48,6 +48,7 @@ export default function Navbar() {
                 src="/logo dailysunrise.png"
                 alt="Daily Sunrise"
                 className="h-9 w-auto object-contain"
+                style={{ mixBlendMode: "multiply" }}
                 onError={(e) => {
                   // Fallback to inline SVG sun if image not found
                   (e.currentTarget as HTMLImageElement).style.display = "none";
@@ -153,7 +154,8 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-deep-950/98 backdrop-blur-sm flex flex-col items-center justify-center gap-8"
+            className="fixed inset-0 z-40 backdrop-blur-sm flex flex-col items-center justify-center gap-8"
+            style={{ backgroundColor: "rgba(26,22,16,0.98)" }}
           >
             {links.map((l, i) => (
               <motion.div
@@ -165,7 +167,8 @@ export default function Navbar() {
                 <Link
                   href={l.href}
                   onClick={() => setMenuOpen(false)}
-                  className="font-serif text-4xl font-medium text-cream-100 hover:text-gold-bright transition-colors"
+                  className="font-serif text-4xl font-medium hover:text-gold-bright transition-colors"
+                  style={{ color: "#FFFDF6" }}
                 >
                   {l.label}
                 </Link>
