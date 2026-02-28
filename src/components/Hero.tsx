@@ -32,6 +32,10 @@ function LevensBoom({ activeZone, onZoneEnter, onZoneLeave }: {
   return (
     <svg viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
 
+      {/* ══ GOLDEN DISC — matches logo sun background ══ */}
+      <circle cx="250" cy="250" r="218" fill="#C4911A" fillOpacity="0.08" />
+      <circle cx="250" cy="250" r="196" fill="#C4911A" fillOpacity="0.05" />
+
       {/* ══ CROWN: circle frame + top branches ══ */}
       <motion.g animate={{ opacity: circleO }} transition={{ duration: 0.6 }}
         onMouseEnter={() => onZoneEnter("crown")} onMouseLeave={onZoneLeave} style={{ cursor: "pointer" }}>
@@ -289,8 +293,8 @@ export default function Hero() {
 
           {/* ── THE BRAND TAGLINE — MAIN H1 — ALWAYS ENGLISH ── */}
           <motion.h1
-            className="font-serif font-bold leading-[1.0] mb-8"
-            style={{ fontSize: "clamp(3rem, 7vw, 5.5rem)", color: "#1A1610" }}
+            className="font-serif font-bold leading-[1.05] mb-8"
+            style={{ fontSize: "clamp(2rem, 3.8vw, 3.4rem)", color: "#1A1610" }}
           >
             {"The same life.".split("").map((char, i) => (
               <span key={i} className="overflow-hidden inline-block">

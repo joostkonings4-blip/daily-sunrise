@@ -11,9 +11,19 @@ export default function CTABanner() {
   const [email, setEmail] = useState("");
   const [done, setDone] = useState(false);
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (email) setDone(true);
+    if (!email) return;
+    try {
+      await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+    } catch {
+      // Silent — still show success for UX
+    }
+    setDone(true);
   }
 
   return (

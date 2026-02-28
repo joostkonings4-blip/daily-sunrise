@@ -33,7 +33,7 @@ export default function Navbar() {
         transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
-            ? "bg-deep-900/95 backdrop-blur-md border-b border-gold-rich/10 shadow-[0_1px_30px_rgba(0,0,0,0.4)]"
+            ? "bg-deep-900/95 backdrop-blur-md border-b border-gold-rich/10 shadow-[0_2px_24px_rgba(180,120,20,0.07)]"
             : "bg-transparent"
         }`}
       >
@@ -95,7 +95,7 @@ export default function Navbar() {
           {/* CTA + Auth */}
           <div className="hidden md:flex items-center gap-3">
             <Link
-              href="#signup"
+              href="/#signup"
               className="px-5 py-2 rounded-full bg-gold-rich text-deep-950 text-sm font-medium hover:bg-gold-bright transition-all duration-300 hover:shadow-[0_0_20px_rgba(196,145,26,0.3)]"
             >
               {t.nav.join}
@@ -180,7 +180,7 @@ export default function Navbar() {
               transition={{ delay: links.length * 0.08 + 0.1 }}
             >
               <Link
-                href="#signup"
+                href="/#signup"
                 onClick={() => setMenuOpen(false)}
                 className="mt-4 inline-flex px-8 py-3 rounded-full bg-gold-rich text-deep-950 font-medium text-lg"
               >
