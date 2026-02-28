@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap');
+
+@import "tailwindcss";
+
+/* ── Tailwind v4 theme tokens ── */
+@theme {
+  /* Sunrise yellows */
+  --color-sunrise-50:  #FFFBF0;
+  --color-sunrise-100: #FFF5D6;
+  --color-sunrise-200: #FFE9A8;
+  --color-sunrise-300: #FFD96B;
+  --color-sunrise-400: #FFC93A;
+  --color-sunrise-500: #F5B800;
+  --color-sunrise-600: #D49A00;
+  --color-sunrise-700: #A87A00;
+
+  /* Sky blues */
+  --color-sky-50:  #F0F8FF;
+  --color-sky-100: #E0F2FE;
+  --color-sky-200: #BAE6FD;
+  --color-sky-300: #7BB8D4;
+  --color-sky-400: #5BA0C0;
+  --color-sky-500: #3B88A8;
+
+  /* Warm neutrals */
+  --color-warm-white: #FDFCF8;
+  --color-warm-cream: #F8F4EC;
+  --color-warm-sand:  #EDE8DC;
+  --color-warm-dark:  #2C2A26;
+  --color-warm-muted: #6B6560;
+
+  /* Nature */
+  --color-nature-100: #E8F0D4;
+  --color-nature-200: #D4E09B;
+  --color-nature-400: #96B040;
+
+  /* Fonts */
+  --font-serif:   'Playfair Display', Georgia, serif;
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-sans:    Inter, system-ui, sans-serif;
+}
+
+/* ── Source paths ── */
+@source "../components/**/*.{ts,tsx}";
+@source "../app/**/*.{ts,tsx}";
+
+/* ── Base ── */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #FDFCF8;
+  color: #2C2A26;
+  font-family: Inter, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ── Custom cursor ── */
+.custom-cursor {
+  width: 12px;
+  height: 12px;
+  background: #F5B800;
+  border-radius: 50%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: multiply;
+}
+
+.custom-cursor-ring {
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid rgba(245, 184, 0, 0.5);
+  border-radius: 50%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+}
+
+/* ── Selection ── */
+::selection {
+  background: #FFD96B;
+  color: #2C2A26;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #FDFCF8; }
+::-webkit-scrollbar-thumb { background: #FFD96B; border-radius: 2px; }
+
+/* ── Wobble char ── */
+.wobble-char {
+  display: inline-block;
+}
+
+/* ── Text reveal ── */
+.text-reveal-container {
+  overflow: hidden;
+  display: inline-block;
+}
+
+/* ── Section spacing ── */
+.section-pad {
+  padding: 6rem 0;
+}
+
+/* ── Masonry grid ── */
+.masonry-grid {
+  columns: 3;
+  column-gap: 1.5rem;
+}
+.masonry-item {
+  break-inside: avoid;
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 1024px) {
+  .masonry-grid { columns: 2; }
+}
+@media (max-width: 640px) {
+  .masonry-grid { columns: 1; }
+}
+
+/* ── Scrollbar hide ── */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar { display: none; }
