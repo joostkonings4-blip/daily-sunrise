@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import Script from "next/script";
+import { useTranslation } from "@/context/LanguageContext";
 
 /*
  * SocialFeed — Live posts from Daily Sunrise TikTok + Instagram
@@ -18,8 +19,8 @@ import Script from "next/script";
  * ───────────────────────────────────────────────────────────────────────────
  */
 
-const TIKTOK_HANDLE    = "dailysunrise";  /* ← update if handle is different */
-const INSTAGRAM_HANDLE = "dailysunrise";  /* ← update if handle is different */
+const TIKTOK_HANDLE    = "dailysunrise";
+const INSTAGRAM_HANDLE = "dailysunrise";
 
 /* Add your real Instagram post shortcodes here */
 const INSTAGRAM_POSTS: string[] = [
@@ -103,12 +104,14 @@ const InstagramIcon = () => (
 );
 
 export default function SocialFeed() {
+  const { t } = useTranslation();
+  const s = t.social;
   const hasPosts = INSTAGRAM_POSTS.length > 0;
 
   return (
     <section
       className="section-pad overflow-hidden"
-      style={{ backgroundColor: "#FFFDF6" }}
+      style={{ backgroundColor: "#FFF8EE" }}
     >
       {/* Section header */}
       <div className="content-mid text-center mb-16">
@@ -116,10 +119,10 @@ export default function SocialFeed() {
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="font-sans text-xs font-medium tracking-[0.32em] uppercase mb-4"
+          className="font-sans text-xs font-semibold tracking-[0.32em] uppercase mb-4"
           style={{ color: "#C98A18" }}
         >
-          Follow the journey
+          {s.eyebrow}
         </motion.p>
         <motion.h2
           initial={{ opacity: 0, y: 24 }}
@@ -129,7 +132,7 @@ export default function SocialFeed() {
           className="font-serif font-bold leading-tight"
           style={{ fontSize: "clamp(2.2rem, 5vw, 3.5rem)", color: "#1A1610" }}
         >
-          Lived in real time
+          {s.heading}
         </motion.h2>
         <motion.div
           initial={{ scaleX: 0 }}
@@ -161,7 +164,7 @@ export default function SocialFeed() {
                 className="font-sans text-xs tracking-wide transition-colors duration-200"
                 style={{ color: "#A89070" }}
               >
-                Open TikTok →
+                {s.tiktokOpen} →
               </a>
             </div>
 
@@ -218,7 +221,7 @@ export default function SocialFeed() {
                 className="font-sans text-xs tracking-wide transition-colors duration-200"
                 style={{ color: "#A89070" }}
               >
-                Open Instagram →
+                {s.instaOpen} →
               </a>
             </div>
 
@@ -262,7 +265,7 @@ export default function SocialFeed() {
                       @{INSTAGRAM_HANDLE}
                     </p>
                     <p className="font-sans text-sm leading-relaxed max-w-xs mx-auto" style={{ color: "#7A6B52" }}>
-                      Follow Daily Sunrise on Instagram for daily sunrise moments, slow living tips and behind-the-scenes.
+                      {s.instaDesc}
                     </p>
                   </div>
                   <div
@@ -270,7 +273,7 @@ export default function SocialFeed() {
                     style={{ background: "#1A1610", color: "#FFFDF6" }}
                   >
                     <InstagramIcon />
-                    Follow on Instagram
+                    {s.instaFollow}
                   </div>
                 </div>
               </motion.a>

@@ -33,7 +33,7 @@ export default function TreeScrollStory() {
   const glowOpacity = useTransform(
     scrollYProgress,
     [0, 0.3, 0.5, 0.7, 1],
-    [0.0, 0.18, 0.32, 0.18, 0.0],
+    [0.08, 0.24, 0.40, 0.24, 0.08],
   );
 
   useMotionValueEvent(scrollYProgress, "change", (v) => {
@@ -69,18 +69,18 @@ export default function TreeScrollStory() {
           }}
         />
 
-        {/* Bottom gradient — makes text readable against the dark ground */}
+        {/* Bottom gradient — warm amber overlay for readability */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
-            background: "linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.52) 32%, rgba(0,0,0,0.12) 62%, transparent 82%)",
+            background: "linear-gradient(to top, rgba(26,16,8,0.78) 0%, rgba(26,16,8,0.42) 28%, rgba(26,16,8,0.10) 58%, transparent 78%)",
           }}
         />
 
-        {/* Top edge softener */}
+        {/* Top edge — soft warm fade */}
         <div
           className="absolute inset-0 pointer-events-none"
-          style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, transparent 22%)" }}
+          style={{ background: "linear-gradient(to bottom, rgba(20,12,4,0.22) 0%, transparent 18%)" }}
         />
 
         {/* ── TEXT OVERLAY ─────────────────────────────── */}
