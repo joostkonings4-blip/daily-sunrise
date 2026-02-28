@@ -1,11 +1,12 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState, ReactNode } from "react";
-import { translations, Locale } from "@/lib/translations";
+import { createContext, useContext, ReactNode } from "react";
+import { translations } from "@/lib/translations";
 
+// English only — all content is served in English
 interface LanguageContextValue {
-  locale: Locale;
-  t: typeof translations[Locale];
+  locale: "en";
+  t: typeof translations["en"];
 }
 
 const LanguageContext = createContext<LanguageContextValue>({
@@ -13,25 +14,9 @@ const LanguageContext = createContext<LanguageContextValue>({
   t: translations.en,
 });
 
-function detectLocale(): Locale {
-  if (typeof navigator === "undefined") return "en";
-  const lang = navigator.language?.toLowerCase() || "en";
-  if (lang.startsWith("nl")) return "nl";
-  if (lang.startsWith("de")) return "de";
-  if (lang.startsWith("fr")) return "fr";
-  return "en";
-}
-
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocale] = useState<Locale>("en");
-
-  useEffect(() => {
-    const detected = detectLocale();
-    setLocale(detected);
-  }, []);
-
   return (
-    <LanguageContext.Provider value={{ locale, t: translations[locale] }}>
+    <LanguageContext.Provider value={{ locale: "en", t: translations.en }}>
       {children}
     </LanguageContext.Provider>
   );

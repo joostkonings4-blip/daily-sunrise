@@ -70,7 +70,7 @@ const SOCIAL_CONTENT = [
 ];
 
 const PLATFORMS = [
-  { id: "all" as Platform,       label: "Alles" },
+  { id: "all" as Platform,       label: "All" },
   { id: "instagram" as Platform, label: "Instagram" },
   { id: "tiktok" as Platform,    label: "TikTok" },
 ];
@@ -107,7 +107,7 @@ export default function SocialPage() {
             className="font-sans text-xs font-semibold tracking-[0.36em] uppercase mb-6"
             style={{ color: "#C98A18" }}
           >
-            Dagelijks geleefd
+            Follow the journey
           </motion.p>
 
           <motion.h1
@@ -117,8 +117,8 @@ export default function SocialPage() {
             className="font-serif font-bold leading-tight mb-6"
             style={{ fontSize: "clamp(2.4rem, 5vw, 4rem)", color: "#1A1610" }}
           >
-            Het leven<br />
-            <span style={{ color: "#C98A18", fontStyle: "italic" }}>achter het platform.</span>
+            Life behind<br />
+            <span style={{ color: "#C98A18", fontStyle: "italic" }}>the platform.</span>
           </motion.h1>
 
           <motion.p
@@ -128,8 +128,8 @@ export default function SocialPage() {
             className="font-sans leading-relaxed mb-12"
             style={{ fontSize: "1rem", color: "#7A6B52", maxWidth: "480px", margin: "0 auto 3rem" }}
           >
-            Ochtendlicht, rituelen, kookmomenten en stilte — gedeeld zoals het leven is.
-            Niet gepolijst. Aanwezig.
+            Morning light, rituals, cooking, and stillness — shared as life is.
+            Unfiltered. Present.
           </motion.p>
 
           {/* Platform links */}
@@ -152,7 +152,7 @@ export default function SocialPage() {
               <div className="text-left">
                 <p className="font-sans text-xs font-semibold tracking-[0.25em] uppercase mb-1" style={{ color: "#C98A18" }}>Instagram</p>
                 <p className="font-serif text-xl font-bold" style={{ color: "#1A1610" }}>12.4k</p>
-                <p className="font-sans text-xs" style={{ color: "#A89070" }}>volgers</p>
+                <p className="font-sans text-xs" style={{ color: "#A89070" }}>followers</p>
               </div>
               <span className="font-sans text-sm font-medium transition-transform duration-300 group-hover:translate-x-1" style={{ color: "#B8750E" }}>
                 @dailysunrise →
@@ -172,7 +172,7 @@ export default function SocialPage() {
               <div className="text-left">
                 <p className="font-sans text-xs font-semibold tracking-[0.25em] uppercase mb-1" style={{ color: "#C98A18" }}>TikTok</p>
                 <p className="font-serif text-xl font-bold" style={{ color: "#1A1610" }}>38.2k</p>
-                <p className="font-sans text-xs" style={{ color: "#A89070" }}>volgers</p>
+                <p className="font-sans text-xs" style={{ color: "#A89070" }}>followers</p>
               </div>
               <span className="font-sans text-sm font-medium transition-transform duration-300 group-hover:translate-x-1" style={{ color: "#B8750E" }}>
                 @dailysunrise →
