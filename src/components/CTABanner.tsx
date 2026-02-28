@@ -1,85 +1,129 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
-
-const WORDS = ["Slow", "down.", "You're", "already", "home."];
+import { useTranslation } from "@/context/LanguageContext";
 
 export default function CTABanner() {
-  const ref    = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-20%" });
+  const { t } = useTranslation();
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-15%" });
+  const [email, setEmail] = useState("");
+  const [done, setDone] = useState(false);
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (email) setDone(true);
+  }
 
   return (
     <section
+      id="signup"
       ref={ref}
-      className="relative overflow-hidden section-pad flex items-center justify-center text-center"
-      style={{
-        background: "linear-gradient(135deg, #2C2A26 0%, #3D3A34 50%, #2C2A26 100%)",
-      }}
+      className="relative section-pad overflow-hidden bg-deep-950 flex items-center justify-center text-center"
     >
-      {/* Sun glow in centre */}
+      {/* Pulsing sunrise glow */}
       <div
         className="absolute inset-0 flex items-center justify-center pointer-events-none"
         aria-hidden
       >
         <motion.div
-          animate={{ scale: [1, 1.2, 1], opacity: [0.15, 0.3, 0.15] }}
-          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-          className="w-[600px] h-[600px] rounded-full"
+          animate={{ scale: [1, 1.18, 1], opacity: [0.06, 0.14, 0.06] }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+          className="w-[700px] h-[700px] rounded-full"
           style={{
-            background: "radial-gradient(circle, #FFD96B 0%, transparent 65%)",
+            background: "radial-gradient(circle, #D4A820 0%, transparent 65%)",
           }}
         />
       </div>
 
-      <div className="relative z-10 max-w-4xl mx-auto px-6">
-        {/* Large animated words */}
-        <div className="flex flex-wrap justify-center gap-x-4 gap-y-2 mb-10">
-          {WORDS.map((word, i) => (
-            <motion.span
-              key={i}
-              initial={{ opacity: 0, y: 50, filter: "blur(8px)" }}
-              animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
-              transition={{ duration: 0.9, delay: i * 0.15, ease: [0.22, 1, 0.36, 1] }}
-              className="font-serif text-5xl md:text-7xl font-bold text-warm-white leading-tight"
-            >
-              {word}
-            </motion.span>
-          ))}
-        </div>
+      {/* Grain */}
+      <div className="grain-overlay absolute inset-0 pointer-events-none" />
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
+      <div className="relative z-10 max-w-3xl mx-auto px-6">
+        {/* Heading */}
+        <motion.h2
+          initial={{ opacity: 0, y: 32 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: WORDS.length * 0.15 + 0.1 }}
-          className="font-sans text-warm-white/60 text-base md:text-lg leading-relaxed mb-10 max-w-lg mx-auto"
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          className="font-serif text-5xl md:text-7xl font-bold text-cream-100 leading-tight mb-4"
         >
-          Join a community of people choosing presence over hustle. Weekly sunrise notes, real talk, and slow living inspiration — straight to your inbox.
-        </motion.p>
+          {t.cta.heading}
+        </motion.h2>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: WORDS.length * 0.15 + 0.3 }}
-          className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
+          transition={{ duration: 0.8, delay: 0.15 }}
+          className="mb-2"
         >
-          <input
-            type="email"
-            placeholder="your@email.com"
-            className="flex-1 px-5 py-3.5 rounded-full bg-warm-white/10 border border-warm-white/20 text-warm-white placeholder:text-warm-white/30 text-sm focus:outline-none focus:border-sunrise-400 transition-colors"
-          />
-          <button className="px-6 py-3.5 rounded-full bg-sunrise-400 text-warm-dark text-sm font-semibold hover:bg-sunrise-300 transition-all duration-300 hover:shadow-xl hover:shadow-sunrise-400/30 whitespace-nowrap">
-            Rise with me ☀️
-          </button>
+          <span className="font-display text-2xl md:text-3xl text-gold-bright italic font-light">
+            {t.cta.sub1}
+          </span>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.25 }}
+          className="mb-10"
+        >
+          <span className="font-display text-2xl md:text-3xl text-gold-bright italic font-light">
+            {t.cta.sub2}
+          </span>
         </motion.div>
 
         <motion.p
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
-          transition={{ delay: WORDS.length * 0.15 + 0.6 }}
-          className="mt-4 font-sans text-xs text-warm-white/30"
+          transition={{ duration: 0.8, delay: 0.35 }}
+          className="font-sans text-base md:text-lg text-cream-muted leading-relaxed mb-10 max-w-xl mx-auto"
         >
-          No spam. Just light. Unsubscribe anytime.
+          {t.cta.body}
+        </motion.p>
+
+        {/* Form */}
+        {!done ? (
+          <motion.form
+            onSubmit={handleSubmit}
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.45 }}
+            className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
+          >
+            <input
+              type="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder={t.cta.placeholder}
+              className="flex-1 px-5 py-3.5 rounded-full bg-deep-800 border border-gold-rich/25 text-cream-100 placeholder:text-cream-dim text-sm focus:outline-none focus:border-gold-warm transition-colors"
+            />
+            <button
+              type="submit"
+              className="px-7 py-3.5 rounded-full bg-gold-rich text-deep-950 text-sm font-semibold hover:bg-gold-bright transition-all duration-300 hover:shadow-[0_0_28px_rgba(196,145,26,0.4)] whitespace-nowrap"
+            >
+              {t.cta.button}
+            </button>
+          </motion.form>
+        ) : (
+          <motion.p
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6 }}
+            className="font-serif text-2xl text-gold-bright italic"
+          >
+            {t.cta.welcome}
+          </motion.p>
+        )}
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="mt-5 font-sans text-xs text-cream-dim"
+        >
+          {t.cta.note}
         </motion.p>
       </div>
     </section>

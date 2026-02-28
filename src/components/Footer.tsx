@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useTranslation } from "@/context/LanguageContext";
 
 const SOCIALS = [
   {
@@ -45,50 +46,55 @@ const SOCIALS = [
   },
 ];
 
-const LINKS = [
-  { label: "Home",   href: "/" },
-  { label: "About",  href: "/about" },
-  { label: "Blog",   href: "/blog" },
-  { label: "Social", href: "/social" },
-];
-
 export default function Footer() {
+  const { t } = useTranslation();
+
+  const links = [
+    { label: t.nav.home,   href: "/" },
+    { label: t.nav.about,  href: "/about" },
+    { label: t.nav.blog,   href: "/blog" },
+    { label: t.nav.social, href: "/social" },
+  ];
+
   return (
-    <footer className="bg-warm-dark text-warm-white/80">
+    <footer className="bg-deep-950 border-t border-gold-rich/10 text-cream-muted">
       <div className="max-w-7xl mx-auto px-6 py-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
           {/* Brand */}
           <div className="space-y-4">
             <div className="flex items-center gap-3">
-              <div
-                className="w-9 h-9 rounded-full"
-                style={{
-                  background: "radial-gradient(circle at 40% 40%, #FFF5D6, #FFD96B 60%, #FFC93A)",
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/logo dailysunrise.png"
+                alt="Daily Sunrise"
+                className="h-9 w-auto object-contain"
+                onError={(e) => {
+                  (e.currentTarget as HTMLImageElement).style.display = "none";
                 }}
               />
-              <span className="font-serif text-xl font-semibold text-warm-white">
+              <span className="font-serif text-xl font-semibold text-cream-100">
                 Daily Sunrise
               </span>
             </div>
-            <p className="font-sans text-sm text-warm-white/50 leading-relaxed max-w-xs">
-              The same life — a different perspective. Slowing down to find the health that already lives inside you.
+            <p className="font-sans text-sm text-cream-dim leading-relaxed max-w-xs">
+              {t.footer.tagline}
             </p>
-            <p className="font-display text-lg italic text-sunrise-300">
+            <p className="font-display text-lg italic text-gold-warm">
               #slowliving
             </p>
           </div>
 
           {/* Navigation */}
           <div>
-            <p className="font-sans text-xs tracking-[0.2em] uppercase text-sunrise-400 mb-4">
-              Navigate
+            <p className="font-sans text-xs tracking-[0.2em] uppercase text-gold-warm mb-5">
+              {t.footer.nav}
             </p>
             <div className="space-y-3">
-              {LINKS.map((l) => (
+              {links.map((l) => (
                 <Link
                   key={l.href}
                   href={l.href}
-                  className="block font-sans text-sm text-warm-white/60 hover:text-sunrise-300 transition-colors duration-200"
+                  className="block font-sans text-sm text-cream-dim hover:text-gold-bright transition-colors duration-200"
                 >
                   {l.label}
                 </Link>
@@ -96,12 +102,12 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Socials + newsletter */}
+          {/* Socials */}
           <div>
-            <p className="font-sans text-xs tracking-[0.2em] uppercase text-sunrise-400 mb-4">
-              Follow the Journey
+            <p className="font-sans text-xs tracking-[0.2em] uppercase text-gold-warm mb-5">
+              {t.footer.follow}
             </p>
-            <div className="flex gap-4 mb-8">
+            <div className="flex gap-5">
               {SOCIALS.map((s) => (
                 <motion.a
                   key={s.name}
@@ -109,36 +115,22 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={s.name}
-                  whileHover={{ y: -3, color: "#FFD96B" }}
-                  className="text-warm-white/50 hover:text-sunrise-300 transition-colors"
+                  whileHover={{ y: -3 }}
+                  className="text-cream-dim hover:text-gold-bright transition-colors"
                 >
                   {s.icon}
                 </motion.a>
               ))}
             </div>
-
-            <p className="font-sans text-xs tracking-[0.2em] uppercase text-sunrise-400 mb-3">
-              Weekly sunrise notes
-            </p>
-            <div className="flex gap-2">
-              <input
-                type="email"
-                placeholder="your@email.com"
-                className="flex-1 px-4 py-2.5 rounded-full bg-warm-white/10 border border-warm-white/20 text-sm text-warm-white placeholder:text-warm-white/30 focus:outline-none focus:border-sunrise-400 transition-colors"
-              />
-              <button className="px-4 py-2.5 rounded-full bg-sunrise-400 text-warm-dark text-sm font-medium hover:bg-sunrise-300 transition-colors">
-                →
-              </button>
-            </div>
           </div>
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-warm-white/10 pt-6 flex flex-col md:flex-row items-center justify-between gap-3">
-          <p className="font-sans text-xs text-warm-white/30">
-            © {new Date().getFullYear()} Daily Sunrise. All rights reserved.
+        <div className="border-t border-gold-rich/10 pt-6 flex flex-col md:flex-row items-center justify-between gap-3">
+          <p className="font-sans text-xs text-cream-dim/50">
+            © {new Date().getFullYear()} Daily Sunrise. {t.footer.rights}
           </p>
-          <p className="font-sans text-xs text-warm-white/30">
+          <p className="font-sans text-xs text-cream-dim/50">
             www.dailysunrise.com
           </p>
         </div>

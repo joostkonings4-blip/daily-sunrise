@@ -26,12 +26,12 @@ export default function StorySection() {
 
       {/* Ambient glow */}
       <motion.div
-        style={{ y: bgY }}
-        className="absolute -right-32 top-0 w-[500px] h-[500px] rounded-full pointer-events-none"
-        aria-hidden
         style={{
+          y: bgY,
           background: "radial-gradient(circle, rgba(196,145,26,0.05) 0%, transparent 65%)",
         }}
+        className="absolute -right-32 top-0 w-[500px] h-[500px] rounded-full pointer-events-none"
+        aria-hidden
       />
 
       <div className="relative z-10 max-w-5xl mx-auto px-6">
