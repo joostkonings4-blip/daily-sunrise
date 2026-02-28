@@ -14,6 +14,20 @@
   --color-sunrise-600: #D49A00;
   --color-sunrise-700: #A87A00;
 
+  /* Rich gold — premium accent */
+  --color-gold-rich:   #C4911A;
+  --color-gold-warm:   #D4A820;
+  --color-gold-bright: #E8C040;
+  --color-gold-pale:   #F2D98A;
+  --color-gold-glow:   #E0B030;
+
+  /* Deep dark backgrounds */
+  --color-deep-950: #070706;
+  --color-deep-900: #100F0D;
+  --color-deep-800: #1C1A16;
+  --color-deep-700: #2A2720;
+  --color-deep-600: #3A3730;
+
   /* Sky blues */
   --color-sky-50:  #F0F8FF;
   --color-sky-100: #E0F2FE;
@@ -28,6 +42,12 @@
   --color-warm-sand:  #EDE8DC;
   --color-warm-dark:  #2C2A26;
   --color-warm-muted: #6B6560;
+
+  /* Premium cream — for dark backgrounds */
+  --color-cream-100:   #FDF8EE;
+  --color-cream-200:   #F2EAD6;
+  --color-cream-muted: #B8AD9A;
+  --color-cream-dim:   #7A7268;
 
   /* Nature */
   --color-nature-100: #E8F0D4;
@@ -50,8 +70,8 @@ html {
 }
 
 body {
-  background-color: #FDFCF8;
-  color: #2C2A26;
+  background-color: #100F0D;
+  color: #FDF8EE;
   font-family: Inter, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -60,9 +80,9 @@ body {
 
 /* ── Custom cursor ── */
 .custom-cursor {
-  width: 12px;
-  height: 12px;
-  background: #F5B800;
+  width: 10px;
+  height: 10px;
+  background: #C4911A;
   border-radius: 50%;
   position: fixed;
   top: 0;
@@ -70,13 +90,13 @@ body {
   pointer-events: none;
   z-index: 9999;
   transform: translate(-50%, -50%);
-  mix-blend-mode: multiply;
+  mix-blend-mode: screen;
 }
 
 .custom-cursor-ring {
-  width: 36px;
-  height: 36px;
-  border: 1.5px solid rgba(245, 184, 0, 0.5);
+  width: 32px;
+  height: 32px;
+  border: 1px solid rgba(196, 145, 26, 0.45);
   border-radius: 50%;
   position: fixed;
   top: 0;
@@ -88,14 +108,14 @@ body {
 
 /* ── Selection ── */
 ::selection {
-  background: #FFD96B;
-  color: #2C2A26;
+  background: #C4911A;
+  color: #070706;
 }
 
 /* ── Scrollbar ── */
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: #FDFCF8; }
-::-webkit-scrollbar-thumb { background: #FFD96B; border-radius: 2px; }
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: #100F0D; }
+::-webkit-scrollbar-thumb { background: #C4911A; border-radius: 2px; }
 
 /* ── Wobble char ── */
 .wobble-char {
@@ -110,7 +130,7 @@ body {
 
 /* ── Section spacing ── */
 .section-pad {
-  padding: 6rem 0;
+  padding: 7rem 0;
 }
 
 /* ── Masonry grid ── */
@@ -136,3 +156,44 @@ body {
   scrollbar-width: none;
 }
 .scrollbar-hide::-webkit-scrollbar { display: none; }
+
+/* ── Tree branch glow effect ── */
+.tree-zone {
+  transition: opacity 0.5s ease;
+  cursor: pointer;
+}
+
+/* ── Grain texture overlay ── */
+.grain-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.025;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── Premium card ── */
+.card-premium {
+  background: rgba(28, 26, 22, 0.8);
+  border: 1px solid rgba(196, 145, 26, 0.15);
+  backdrop-filter: blur(12px);
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+.card-premium:hover {
+  border-color: rgba(196, 145, 26, 0.45);
+  box-shadow: 0 8px 40px rgba(196, 145, 26, 0.08);
+}
+
+/* ── Gold text glow ── */
+.text-gold-glow {
+  text-shadow: 0 0 40px rgba(196, 145, 26, 0.35);
+}
+
+/* ── Horizontal rule premium ── */
+.hr-gold {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(196, 145, 26, 0.4), transparent);
+  border: none;
+}
