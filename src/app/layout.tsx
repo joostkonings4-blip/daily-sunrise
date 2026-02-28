@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CustomCursor from "@/components/CustomCursor";
+import SessionProvider from "@/components/SessionProvider";
 
 export const metadata: Metadata = {
   title:       "Daily Sunrise — The Same Life, a Different Perspective",
@@ -25,10 +26,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <CustomCursor />
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
+        <SessionProvider>
+          <CustomCursor />
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
+        </SessionProvider>
       </body>
     </html>
   );
