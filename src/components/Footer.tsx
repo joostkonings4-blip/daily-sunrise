@@ -17,7 +17,7 @@ const SOCIALS = [
   },
   {
     name: "TikTok",
-    href: "https://tiktok.com/@dailysunrise",
+    href: "https://tiktok.com/@dailysunriseofficial",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5">
         <path

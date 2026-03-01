@@ -66,7 +66,7 @@ const SOCIAL_CONTENT = [
     likes:    "6.2k",
     comments: undefined as string | undefined,
     image:    "https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=600&q=80",
-    url:      "https://tiktok.com/@dailysunrise",
+    url:      "https://tiktok.com/@dailysunriseofficial",
     date:     "25 feb",
   },
   {
@@ -88,7 +88,7 @@ const SOCIAL_CONTENT = [
     likes:    "18.4k",
     comments: undefined as string | undefined,
     image:    "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&q=80",
-    url:      "https://tiktok.com/@dailysunrise",
+    url:      "https://tiktok.com/@dailysunriseofficial",
     date:     "20 feb",
   },
   {
@@ -110,7 +110,7 @@ const SOCIAL_CONTENT = [
     likes:    "4.1k",
     comments: undefined as string | undefined,
     image:    "https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=600&q=80",
-    url:      "https://tiktok.com/@dailysunrise",
+    url:      "https://tiktok.com/@dailysunriseofficial",
     date:     "15 feb",
   },
 ];
@@ -274,7 +274,7 @@ export default function SocialPage() {
             {/* TikTok card */}
             <RevealSection delay={0.18}>
               <a
-                href="https://tiktok.com/@dailysunrise"
+                href="https://tiktok.com/@dailysunriseofficial"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group flex items-center justify-between gap-6 transition-all duration-300"
@@ -312,7 +312,7 @@ export default function SocialPage() {
                   className="font-sans font-medium transition-transform duration-300 group-hover:translate-x-1"
                   style={{ fontSize: "0.88rem", color: "#B8750E", display: "inline-block" }}
                 >
-                  @dailysunrise&nbsp;&rarr;
+                  @dailysunriseofficial&nbsp;&rarr;
                 </span>
               </a>
             </RevealSection>
@@ -374,8 +374,8 @@ export default function SocialPage() {
             <div style={{ display: "flex", justifyContent: "center" }}>
               <blockquote
                 className="tiktok-embed"
-                cite="https://www.tiktok.com/@dailysunrise"
-                data-unique-id="dailysunrise"
+                cite="https://www.tiktok.com/@dailysunriseofficial"
+                data-unique-id="dailysunriseofficial"
                 data-embed-type="creator"
                 style={{
                   maxWidth: "780px",
@@ -388,11 +388,11 @@ export default function SocialPage() {
                 <section>
                   <a
                     target="_blank"
-                    href="https://www.tiktok.com/@dailysunrise"
+                    href="https://www.tiktok.com/@dailysunriseofficial"
                     rel="noopener noreferrer"
                     style={{ color: "#C4911A" }}
                   >
-                    @dailysunrise
+                    @dailysunriseofficial
                   </a>
                 </section>
               </blockquote>
@@ -402,7 +402,7 @@ export default function SocialPage() {
           {/* Follow button */}
           <RevealSection delay={0.25} style={{ textAlign: "center", marginTop: "48px" }}>
             <a
-              href="https://tiktok.com/@dailysunrise"
+              href="https://tiktok.com/@dailysunriseofficial"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block font-sans font-semibold transition-all duration-300 hover:opacity-90 hover:scale-[1.02]"
