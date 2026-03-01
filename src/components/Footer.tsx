@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { useTranslation } from "@/context/LanguageContext";
 
 const SOCIALS = [
   {
@@ -47,17 +46,19 @@ const SOCIALS = [
 ];
 
 export default function Footer() {
-  const { t } = useTranslation();
-
   const links = [
-    { label: t.nav.home,   href: "/" },
-    { label: t.nav.about,  href: "/about" },
-    { label: t.nav.blog,   href: "/blog" },
-    { label: t.nav.social, href: "/social" },
+    { label: "Home",       href: "/" },
+    { label: "About",      href: "/about" },
+    { label: "Philosophy", href: "/philosophy" },
+    { label: "Blog",       href: "/blog" },
+    { label: "Social",     href: "/social" },
   ];
 
   return (
-    <footer className="border-t border-gold-rich/10" style={{ backgroundColor: "#1A1610", color: "#A89070" }}>
+    <footer
+      className="border-t"
+      style={{ backgroundColor: "#1A1610", color: "#A89070", borderColor: "rgba(196,145,26,0.10)" }}
+    >
       <div className="max-w-7xl mx-auto px-6 py-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
           {/* Brand */}
@@ -76,25 +77,28 @@ export default function Footer() {
                 Daily Sunrise
               </span>
             </div>
-            <p className="font-sans text-sm text-cream-dim leading-relaxed max-w-xs">
-              {t.footer.tagline}
+            <p className="font-sans text-sm leading-relaxed max-w-xs" style={{ color: "#A89070" }}>
+              The Same Life — a different perspective
             </p>
-            <p className="font-display text-lg italic text-gold-warm">
+            <p className="font-serif text-lg italic" style={{ color: "#C98A18" }}>
               #slowliving
             </p>
           </div>
 
           {/* Navigation */}
           <div>
-            <p className="font-sans text-xs tracking-[0.2em] uppercase text-gold-warm mb-5">
-              {t.footer.nav}
+            <p
+              className="font-sans text-xs tracking-[0.2em] uppercase mb-5"
+              style={{ color: "#C98A18" }}
+            >
+              Navigation
             </p>
             <div className="space-y-3">
               {links.map((l) => (
                 <Link
                   key={l.href}
                   href={l.href}
-                  className="block font-sans text-sm hover:text-gold-bright transition-colors duration-200"
+                  className="block font-sans text-sm transition-colors duration-200"
                   style={{ color: "#8A7A68" }}
                 >
                   {l.label}
@@ -105,8 +109,11 @@ export default function Footer() {
 
           {/* Socials */}
           <div>
-            <p className="font-sans text-xs tracking-[0.2em] uppercase text-gold-warm mb-5">
-              {t.footer.follow}
+            <p
+              className="font-sans text-xs tracking-[0.2em] uppercase mb-5"
+              style={{ color: "#C98A18" }}
+            >
+              Follow
             </p>
             <div className="flex gap-5">
               {SOCIALS.map((s) => (
@@ -117,7 +124,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   aria-label={s.name}
                   whileHover={{ y: -3 }}
-                  className="hover:text-gold-bright transition-colors"
+                  className="transition-colors"
                   style={{ color: "#8A7A68" }}
                 >
                   {s.icon}
@@ -128,9 +135,12 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-gold-rich/10 pt-6 flex flex-col md:flex-row items-center justify-between gap-3">
+        <div
+          className="border-t pt-6 flex flex-col md:flex-row items-center justify-between gap-3"
+          style={{ borderColor: "rgba(196,145,26,0.10)" }}
+        >
           <p className="font-sans text-xs" style={{ color: "rgba(168,144,112,0.5)" }}>
-            © {new Date().getFullYear()} Daily Sunrise. {t.footer.rights}
+            &copy; {new Date().getFullYear()} Daily Sunrise. All rights reserved.
           </p>
           <p className="font-sans text-xs" style={{ color: "rgba(168,144,112,0.5)" }}>
             www.dailysunrise.com

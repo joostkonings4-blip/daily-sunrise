@@ -3,7 +3,6 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CustomCursor from "@/components/CustomCursor";
-import SessionProvider from "@/components/SessionProvider";
 import { LanguageProvider } from "@/context/LanguageContext";
 
 export const metadata: Metadata = {
@@ -27,14 +26,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <SessionProvider>
-          <LanguageProvider>
-            <CustomCursor />
-            <Navbar />
-            <main>{children}</main>
-            <Footer />
-          </LanguageProvider>
-        </SessionProvider>
+        <LanguageProvider>
+          <CustomCursor />
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
+        </LanguageProvider>
       </body>
     </html>
   );
