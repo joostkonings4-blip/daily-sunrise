@@ -6,6 +6,8 @@ import { motion, useInView } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { getPost, BLOG_POSTS } from "@/lib/blog-data";
+import ReadingProgress from "@/components/ReadingProgress";
+import ShareButtons from "@/components/ShareButtons";
 
 // ─── Helpers ───────────────────────────────────────────────────────────────────
 function useFade(margin = "-60px") {
@@ -381,6 +383,7 @@ export default function BlogPostPage() {
 
   return (
     <>
+      <ReadingProgress />
       <PostHero
         image={post.image}
         category={post.category}
@@ -389,6 +392,21 @@ export default function BlogPostPage() {
         readTime={post.readTime}
       />
       <ArticleBody excerpt={post.excerpt} body={post.body} />
+
+      {/* Share buttons — gold divider + share row */}
+      <section style={{ backgroundColor: "#FFFDF6" }}>
+        <div className="px-6 mx-auto pb-16" style={{ maxWidth: "768px" }}>
+          <div
+            style={{
+              height: "1px",
+              background: "rgba(196,145,26,0.22)",
+              marginBottom: "24px",
+            }}
+          />
+          <ShareButtons title={post.title} slug={slug} />
+        </div>
+      </section>
+
       <RelatedPosts posts={related} />
     </>
   );

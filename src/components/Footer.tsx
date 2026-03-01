@@ -142,9 +142,22 @@ export default function Footer() {
           <p className="font-sans text-xs" style={{ color: "rgba(168,144,112,0.5)" }}>
             &copy; {new Date().getFullYear()} Daily Sunrise. All rights reserved.
           </p>
-          <p className="font-sans text-xs" style={{ color: "rgba(168,144,112,0.5)" }}>
-            www.dailysunrise.com
-          </p>
+          <div className="flex items-center gap-4">
+            <Link
+              href="/privacy"
+              className="font-sans text-xs transition-colors duration-200"
+              style={{ color: "rgba(168,144,112,0.5)" }}
+            >
+              Privacy
+            </Link>
+            <Link
+              href="/terms"
+              className="font-sans text-xs transition-colors duration-200"
+              style={{ color: "rgba(168,144,112,0.5)" }}
+            >
+              Terms
+            </Link>
+          </div>
         </div>
       </div>
     </footer>
