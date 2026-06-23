@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { Magnetic } from "@/components/motion";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -88,12 +89,14 @@ export default function Navbar() {
 
           {/* CTA */}
           <div className="hidden md:flex items-center">
-            <Link
-              href="/#signup"
-              className="px-5 py-2 rounded-full bg-gold-rich text-deep-950 text-sm font-medium hover:bg-gold-bright transition-all duration-300 hover:shadow-[0_0_20px_rgba(196,145,26,0.3)]"
-            >
-              Join now
-            </Link>
+            <Magnetic strength={0.4}>
+              <Link
+                href="/#signup"
+                className="sheen-host inline-block px-5 py-2 rounded-full bg-gold-rich text-deep-950 text-sm font-medium hover:bg-gold-bright transition-all duration-300 hover:shadow-[0_0_24px_rgba(196,145,26,0.4)]"
+              >
+                Join now
+              </Link>
+            </Magnetic>
           </div>
 
           {/* Mobile hamburger */}

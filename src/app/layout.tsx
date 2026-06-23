@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CustomCursor from "@/components/CustomCursor";
 import NewsletterPopup from "@/components/NewsletterPopup";
+import SmoothScroll from "@/components/motion/SmoothScroll";
 import { LanguageProvider } from "@/context/LanguageContext";
 
 export const metadata: Metadata = {
@@ -42,6 +43,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <LanguageProvider>
+          <SmoothScroll />
           <CustomCursor />
           <Navbar />
           <NewsletterPopup />
